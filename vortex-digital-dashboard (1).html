@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vortex Digital AI - Client Dashboard</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+        }
+        
+        .btn-success {
+            background: #28a745;
+        }
+        
+        .dashboard {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logout-btn {
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .main-content {
+            display: flex;
+            min-height: 600px;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background: #f8f9fa;
+            padding: 20px 0;
+            border-right: 2px solid #e0e0e0;
+        }
+        
+        .nav-item {
+            padding: 15px 30px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .nav-item:hover {
+            background: #e9ecef;
+        }
+        
+        .nav-item.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .content-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 600px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .service-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .service-item h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .service-item p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            max-width: 70%;
+        }
+        
+        .message.sent {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+        
+        .message.received {
+            background: white;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .message-header {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+        
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .send-btn {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .credentials-list {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .credential-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .credential-item strong {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .credential-item span {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .calendar {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .deadline-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .deadline-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .deadline-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .deadline-date {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        
+        .team-list {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .team-member {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .member-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .member-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .role-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .role-badge.admin {
+            background: #667eea;
+            color: white;
+        }
+        
+        .role-badge.client {
+            background: #28a745;
+            color: white;
+        }
+        
+        .role-badge.team {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .small-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border: 2px solid #2196F3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .info-box h3 {
+            color: #2196F3;
+            margin-bottom: 10px;
+        }
+        
+        .info-box p {
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .info-box ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Helper functions for localStorage
+        const storage = {
+            get: (key) => {
+                try {
+                    return JSON.parse(localStorage.getItem(key));
+                } catch {
+                    return null;
+                }
+            },
+            set: (key, value) => {
+                localStorage.setItem(key, JSON.stringify(value));
+            }
+        };
+
+        // Initialize demo data if not exists
+        if (!storage.get('users')) {
+            storage.set('users', [
+                { id: 1, email: 'admin@vortexdigital.ai', password: 'admin@pakistan', name: 'Admin', role: 'admin' },
+                { id: 2, email: 'naveed@vortexdigital.ai', password: 'admin@pakistan', name: 'Naveed Ali', role: 'team' },
+                { id: 3, email: 'developer@vortexdigital.ai', password: 'admin@pakistan', name: 'Developer', role: 'team' },
+                { id: 4, email: 'designer@vortexdigital.ai', password: 'admin@pakistan', name: 'Designer', role: 'team' },
+                { id: 5, email: 'seo@vortexdigital.ai', password: 'admin@pakistan', name: 'SEO Expert', role: 'team' }
+            ]);
+        }
+
+        if (!storage.get('services')) {
+            storage.set('services', [
+                { id: 1, name: 'Website Development', description: 'Professional website design and development', price: '$500 - $5000' },
+                { id: 2, name: 'SEO Optimization', description: 'Search Engine Optimization services', price: '$300 - $2000' },
+                { id: 3, name: 'Digital Marketing', description: 'Social media and digital marketing campaigns', price: '$400 - $3000' },
+                { id: 4, name: 'Mobile App Development', description: 'iOS and Android app development', price: '$2000 - $10000' },
+                { id: 5, name: 'Branding & Logo Design', description: 'Complete branding and logo design services', price: '$200 - $1500' }
+            ]);
+        }
+
+        if (!storage.get('messages')) {
+            storage.set('messages', [
+                { id: 1, from: 'Admin', text: 'Welcome to Vortex Digital AI! How can we help you?', time: '10:30 AM', sent: false }
+            ]);
+        }
+
+        if (!storage.get('credentials')) {
+            storage.set('credentials', [
+                { id: 1, service: 'Website Hosting', username: 'client@hosting.com', password: 'demo***', url: 'https://hosting.example.com' },
+                { id: 2, service: 'cPanel Access', username: 'cpanel_user', password: 'demo***', url: 'https://cpanel.example.com' }
+            ]);
+        }
+
+        if (!storage.get('deadlines')) {
+            storage.set('deadlines', [
+                { id: 1, project: 'Website Development', task: 'Design Phase', date: '2024-06-15', status: 'In Progress' },
+                { id: 2, project: 'SEO Campaign', task: 'Keyword Research', date: '2024-06-20', status: 'Pending' }
+            ]);
+        }
+
+        function App() {
+            const [currentUser, setCurrentUser] = useState(storage.get('currentUser'));
+            const [activeTab, setActiveTab] = useState('services');
+
+            const logout = () => {
+                storage.set('currentUser', null);
+                setCurrentUser(null);
+            };
+
+            if (!currentUser) {
+                return <LoginPage setCurrentUser={setCurrentUser} />;
+            }
+
+            return (
+                <div className="container">
+                    <div className="dashboard">
+                        <div className="header">
+                            <h1>🚀 Vortex Digital AI</h1>
+                            <div className="user-info">
+                                <span>{currentUser.name} ({currentUser.role})</span>
+                                <button className="logout-btn" onClick={logout}>Logout</button>
+                            </div>
+                        </div>
+                        <div className="main-content">
+                            <div className="sidebar">
+                                <div 
+                                    className={`nav-item ${activeTab === 'services' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('services')}
+                                >
+                                    📋 Services
+                                </div>
+                                <div 
+                                    className={`nav-item ${activeTab === 'chat' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('chat')}
+                                >
+                                    💬 Chat
+                                </div>
+                                <div 
+                                    className={`nav-item ${activeTab === 'credentials' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('credentials')}
+                                >
+                                    🔐 Credentials
+                                </div>
+                                <div 
+                                    className={`nav-item ${activeTab === 'calendar' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('calendar')}
+                                >
+                                    📅 Deadlines
+                                </div>
+                                <div 
+                                    className={`nav-item ${activeTab === 'team' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('team')}
+                                >
+                                    👥 Team
+                                </div>
+                                <div 
+                                    className={`nav-item ${activeTab === 'guide' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('guide')}
+                                >
+                                    📖 Guide
+                                </div>
+                            </div>
+                            <div className="content-area">
+                                {activeTab === 'services' && <ServicesTab currentUser={currentUser} />}
+                                {activeTab === 'chat' && <ChatTab currentUser={currentUser} />}
+                                {activeTab === 'credentials' && <CredentialsTab currentUser={currentUser} />}
+                                {activeTab === 'calendar' && <CalendarTab currentUser={currentUser} />}
+                                {activeTab === 'team' && <TeamTab currentUser={currentUser} />}
+                                {activeTab === 'guide' && <GuideTab />}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function LoginPage({ setCurrentUser }) {
+            const [email, setEmail] = useState('');
+            const [password, setPassword] = useState('');
+            const [isSignup, setIsSignup] = useState(false);
+            const [name, setName] = useState('');
+            const [role, setRole] = useState('client');
+
+            const handleLogin = () => {
+                const users = storage.get('users') || [];
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    storage.set('currentUser', user);
+                    setCurrentUser(user);
+                } else {
+                    alert('Invalid email or password!');
+                }
+            };
+
+            const handleSignup = () => {
+                if (!email || !password || !name) {
+                    alert('Please fill all fields!');
+                    return;
+                }
+
+                const users = storage.get('users') || [];
+                
+                if (users.find(u => u.email === email)) {
+                    alert('Email already exists!');
+                    return;
+                }
+
+                const newUser = {
+                    id: users.length + 1,
+                    email,
+                    password,
+                    name,
+                    role
+                };
+
+                users.push(newUser);
+                storage.set('users', users);
+                storage.set('currentUser', newUser);
+                setCurrentUser(newUser);
+            };
+
+            return (
+                <div className="login-container">
+                    <div className="login-box">
+                        <div className="logo">
+                            <h1>🚀 Vortex Digital AI</h1>
+                            <p>Client Management Dashboard</p>
+                        </div>
+
+                        {!isSignup ? (
+                            <>
+                                <div className="form-group">
+                                    <label>Email</label>
+                                    <input 
+                                        type="email" 
+                                        placeholder="Enter your email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Password</label>
+                                    <input 
+                                        type="password" 
+                                        placeholder="Enter your password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </div>
+                                <button className="btn" onClick={handleLogin}>Login</button>
+                                <p style={{textAlign: 'center', marginTop: '15px', color: '#666'}}>
+                                    Don't have an account? 
+                                    <a href="#" onClick={() => setIsSignup(true)} style={{color: '#667eea', marginLeft: '5px'}}>Sign Up</a>
+                                </p>
+                            </>
+                        ) : (
+                            <>
+                                <div className="form-group">
+                                    <label>Full Name</label>
+                                    <input 
+                                        type="text" 
+                                        placeholder="Enter your name"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Email</label>
+                                    <input 
+                                        type="email" 
+                                        placeholder="Enter your email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Password</label>
+                                    <input 
+                                        type="password" 
+                                        placeholder="Create a password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Role</label>
+                                    <select value={role} onChange={(e) => setRole(e.target.value)}>
+                                        <option value="client">Client</option>
+                                        <option value="team">Team Member</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                </div>
+                                <button className="btn" onClick={handleSignup}>Sign Up</button>
+                                <p style={{textAlign: 'center', marginTop: '15px', color: '#666'}}>
+                                    Already have an account? 
+                                    <a href="#" onClick={() => setIsSignup(false)} style={{color: '#667eea', marginLeft: '5px'}}>Login</a>
+                                </p>
+                            </>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        function ServicesTab({ currentUser }) {
+            const [services, setServices] = useState(storage.get('services') || []);
+            const [showAddForm, setShowAddForm] = useState(false);
+            const [newService, setNewService] = useState({ name: '', description: '', price: '' });
+
+            const addService = () => {
+                if (!newService.name || !newService.description || !newService.price) {
+                    alert('Please fill all fields!');
+                    return;
+                }
+
+                const updatedServices = [...services, { id: services.length + 1, ...newService }];
+                setServices(updatedServices);
+                storage.set('services', updatedServices);
+                setNewService({ name: '', description: '', price: '' });
+                setShowAddForm(false);
+            };
+
+            const deleteService = (id) => {
+                const updatedServices = services.filter(s => s.id !== id);
+                setServices(updatedServices);
+                storage.set('services', updatedServices);
+            };
+
+            return (
+                <div>
+                    <h2 className="section-title">Our Services</h2>
+                    
+                    {currentUser.role === 'admin' && (
+                        <button 
+                            className="btn" 
+                            style={{marginBottom: '20px', width: 'auto', padding: '10px 20px'}}
+                            onClick={() => setShowAddForm(!showAddForm)}
+                        >
+                            {showAddForm ? 'Cancel' : '+ Add New Service'}
+                        </button>
+                    )}
+
+                    {showAddForm && (
+                        <div className="card">
+                            <h3>Add New Service</h3>
+                            <div className="form-group">
+                                <label>Service Name</label>
+                                <input 
+                                    type="text"
+                                    value={newService.name}
+                                    onChange={(e) => setNewService({...newService, name: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Description</label>
+                                <textarea 
+                                    value={newService.description}
+                                    onChange={(e) => setNewService({...newService, description: e.target.value})}
+                                    rows="3"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Price Range</label>
+                                <input 
+                                    type="text"
+                                    placeholder="e.g. $500 - $2000"
+                                    value={newService.price}
+                                    onChange={(e) => setNewService({...newService, price: e.target.value})}
+                                />
+                            </div>
+                            <button className="btn btn-success" onClick={addService}>Add Service</button>
+                        </div>
+                    )}
+
+                    <div>
+                        {services.map(service => (
+                            <div key={service.id} className="service-item">
+                                <div>
+                                    <h4>{service.name}</h4>
+                                    <p>{service.description}</p>
+                                </div>
+                                <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
+                                    <span className="price">{service.price}</span>
+                                    {currentUser.role === 'admin' && (
+                                        <button 
+                                            className="small-btn btn-danger"
+                                            onClick={() => deleteService(service.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function ChatTab({ currentUser }) {
+            const [messages, setMessages] = useState(storage.get('messages') || []);
+            const [newMessage, setNewMessage] = useState('');
+
+            const sendMessage = () => {
+                if (!newMessage.trim()) return;
+
+                const message = {
+                    id: messages.length + 1,
+                    from: currentUser.name,
+                    text: newMessage,
+                    time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+                    sent: true
+                };
+
+                const updatedMessages = [...messages, message];
+                setMessages(updatedMessages);
+                storage.set('messages', updatedMessages);
+                setNewMessage('');
+            };
+
+            return (
+                <div>
+                    <h2 className="section-title">Chat with Team & Clients</h2>
+                    
+                    <div className="chat-container">
+                        <div className="chat-messages">
+                            {messages.map(msg => (
+                                <div key={msg.id} className={`message ${msg.sent ? 'sent' : 'received'}`}>
+                                    <div className="message-header">{msg.from} · {msg.time}</div>
+                                    <div>{msg.text}</div>
+                                </div>
+                            ))}
+                        </div>
+                        
+                        <div className="chat-input-container">
+                            <input 
+                                type="text"
+                                className="chat-input"
+                                placeholder="Type your message..."
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                            />
+                            <button className="send-btn" onClick={sendMessage}>Send</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function CredentialsTab({ currentUser }) {
+            const [credentials, setCredentials] = useState(storage.get('credentials') || []);
+            const [showAddForm, setShowAddForm] = useState(false);
+            const [newCred, setNewCred] = useState({ service: '', username: '', password: '', url: '' });
+
+            const addCredential = () => {
+                if (!newCred.service || !newCred.username || !newCred.password) {
+                    alert('Please fill required fields!');
+                    return;
+                }
+
+                const updatedCreds = [...credentials, { id: credentials.length + 1, ...newCred }];
+                setCredentials(updatedCreds);
+                storage.set('credentials', updatedCreds);
+                setNewCred({ service: '', username: '', password: '', url: '' });
+                setShowAddForm(false);
+            };
+
+            const deleteCred = (id) => {
+                const updatedCreds = credentials.filter(c => c.id !== id);
+                setCredentials(updatedCreds);
+                storage.set('credentials', updatedCreds);
+            };
+
+            return (
+                <div>
+                    <h2 className="section-title">Access Credentials</h2>
+                    
+                    {currentUser.role === 'admin' && (
+                        <button 
+                            className="btn" 
+                            style={{marginBottom: '20px', width: 'auto', padding: '10px 20px'}}
+                            onClick={() => setShowAddForm(!showAddForm)}
+                        >
+                            {showAddForm ? 'Cancel' : '+ Add Credentials'}
+                        </button>
+                    )}
+
+                    {showAddForm && (
+                        <div className="card">
+                            <h3>Add New Credentials</h3>
+                            <div className="form-group">
+                                <label>Service Name *</label>
+                                <input 
+                                    type="text"
+                                    value={newCred.service}
+                                    onChange={(e) => setNewCred({...newCred, service: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Username *</label>
+                                <input 
+                                    type="text"
+                                    value={newCred.username}
+                                    onChange={(e) => setNewCred({...newCred, username: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Password *</label>
+                                <input 
+                                    type="text"
+                                    value={newCred.password}
+                                    onChange={(e) => setNewCred({...newCred, password: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Access URL</label>
+                                <input 
+                                    type="text"
+                                    placeholder="https://..."
+                                    value={newCred.url}
+                                    onChange={(e) => setNewCred({...newCred, url: e.target.value})}
+                                />
+                            </div>
+                            <button className="btn btn-success" onClick={addCredential}>Save Credentials</button>
+                        </div>
+                    )}
+
+                    <div className="credentials-list">
+                        {credentials.map(cred => (
+                            <div key={cred.id} className="credential-item">
+                                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'start'}}>
+                                    <div>
+                                        <strong>🔐 {cred.service}</strong>
+                                        <div style={{marginTop: '10px'}}>
+                                            <span style={{display: 'block'}}>Username: {cred.username}</span>
+                                            <span style={{display: 'block'}}>Password: {cred.password}</span>
+                                            {cred.url && <span style={{display: 'block'}}>URL: <a href={cred.url} target="_blank">{cred.url}</a></span>}
+                                        </div>
+                                    </div>
+                                    {currentUser.role === 'admin' && (
+                                        <button 
+                                            className="small-btn btn-danger"
+                                            onClick={() => deleteCred(cred.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function CalendarTab({ currentUser }) {
+            const [deadlines, setDeadlines] = useState(storage.get('deadlines') || []);
+            const [showAddForm, setShowAddForm] = useState(false);
+            const [newDeadline, setNewDeadline] = useState({ project: '', task: '', date: '', status: 'Pending' });
+
+            const addDeadline = () => {
+                if (!newDeadline.project || !newDeadline.task || !newDeadline.date) {
+                    alert('Please fill all fields!');
+                    return;
+                }
+
+                const updatedDeadlines = [...deadlines, { id: deadlines.length + 1, ...newDeadline }];
+                setDeadlines(updatedDeadlines);
+                storage.set('deadlines', updatedDeadlines);
+                setNewDeadline({ project: '', task: '', date: '', status: 'Pending' });
+                setShowAddForm(false);
+            };
+
+            const deleteDeadline = (id) => {
+                const updatedDeadlines = deadlines.filter(d => d.id !== id);
+                setDeadlines(updatedDeadlines);
+                storage.set('deadlines', updatedDeadlines);
+            };
+
+            return (
+                <div>
+                    <h2 className="section-title">Project Deadlines</h2>
+                    
+                    {currentUser.role !== 'client' && (
+                        <button 
+                            className="btn" 
+                            style={{marginBottom: '20px', width: 'auto', padding: '10px 20px'}}
+                            onClick={() => setShowAddForm(!showAddForm)}
+                        >
+                            {showAddForm ? 'Cancel' : '+ Add Deadline'}
+                        </button>
+                    )}
+
+                    {showAddForm && (
+                        <div className="card">
+                            <h3>Add New Deadline</h3>
+                            <div className="form-group">
+                                <label>Project Name</label>
+                                <input 
+                                    type="text"
+                                    value={newDeadline.project}
+                                    onChange={(e) => setNewDeadline({...newDeadline, project: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Task Description</label>
+                                <input 
+                                    type="text"
+                                    value={newDeadline.task}
+                                    onChange={(e) => setNewDeadline({...newDeadline, task: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Due Date</label>
+                                <input 
+                                    type="date"
+                                    value={newDeadline.date}
+                                    onChange={(e) => setNewDeadline({...newDeadline, date: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Status</label>
+                                <select 
+                                    value={newDeadline.status}
+                                    onChange={(e) => setNewDeadline({...newDeadline, status: e.target.value})}
+                                >
+                                    <option value="Pending">Pending</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                            <button className="btn btn-success" onClick={addDeadline}>Add Deadline</button>
+                        </div>
+                    )}
+
+                    <div className="calendar">
+                        {deadlines.map(deadline => (
+                            <div key={deadline.id} className="deadline-item">
+                                <div className="deadline-info">
+                                    <h4>{deadline.project}</h4>
+                                    <p>{deadline.task}</p>
+                                    <p style={{marginTop: '5px', fontSize: '12px'}}>Status: <strong>{deadline.status}</strong></p>
+                                </div>
+                                <div style={{textAlign: 'right'}}>
+                                    <div className="deadline-date">{deadline.date}</div>
+                                    {currentUser.role !== 'client' && (
+                                        <button 
+                                            className="small-btn btn-danger"
+                                            style={{marginTop: '10px'}}
+                                            onClick={() => deleteDeadline(deadline.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function TeamTab({ currentUser }) {
+            const [users, setUsers] = useState(storage.get('users') || []);
+
+            return (
+                <div>
+                    <h2 className="section-title">Team & Clients</h2>
+                    
+                    <div className="team-list">
+                        {users.map(user => (
+                            <div key={user.id} className="team-member">
+                                <div className="member-info">
+                                    <h4>{user.name}</h4>
+                                    <p>{user.email}</p>
+                                </div>
+                                <span className={`role-badge ${user.role}`}>
+                                    {user.role.toUpperCase()}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function GuideTab() {
+            return (
+                <div>
+                    <h2 className="section-title">Complete Setup Guide</h2>
+                    
+                    <div className="info-box">
+                        <h3>🎯 What is this dashboard?</h3>
+                        <p>
+                            This is a <strong>FREE client management system</strong> for <strong>Vortex Digital AI</strong>. 
+                            It helps you manage clients, team members, services, chat, credentials, and deadlines - all in one place!
+                        </p>
+                    </div>
+
+                    <div className="card">
+                        <h3>✨ Features</h3>
+                        <ul>
+                            <li><strong>Services List:</strong> Show your services (Website, SEO, etc.) with pricing</li>
+                            <li><strong>Live Chat:</strong> Chat with clients and team members in real-time</li>
+                            <li><strong>Credentials:</strong> Store and share login details securely</li>
+                            <li><strong>Deadlines Calendar:</strong> Track project deadlines and tasks</li>
+                            <li><strong>Team Management:</strong> Manage clients and team members</li>
+                            <li><strong>Free Storage:</strong> All data stored in browser (no server needed!)</li>
+                        </ul>
+                    </div>
+
+                    <div className="card">
+                        <h3>🚀 How to Use (Quick Start)</h3>
+                        <ol>
+                            <li><strong>Login:</strong> Use demo accounts or create your own</li>
+                            <li><strong>Add Services:</strong> Go to Services tab and add your offerings</li>
+                            <li><strong>Chat:</strong> Communicate with team and clients</li>
+                            <li><strong>Share Credentials:</strong> Add login details for clients</li>
+                            <li><strong>Set Deadlines:</strong> Track project timelines</li>
+                            <li><strong>Invite Team:</strong> Share login link with your team</li>
+                        </ol>
+                    </div>
+
+                    <div className="card">
+                        <h3>💾 How to Deploy (FREE Options)</h3>
+                        
+                        <h4 style={{marginTop: '15px'}}>Option 1: GitHub Pages (Recommended - 100% FREE)</h4>
+                        <ol>
+                            <li>Create GitHub account (free)</li>
+                            <li>Create new repository: "vortex-dashboard"</li>
+                            <li>Upload this HTML file</li>
+                            <li>Enable GitHub Pages in Settings</li>
+                            <li>Your dashboard will be live at: <code>yourusername.github.io/vortex-dashboard</code></li>
+                        </ol>
+
+                        <h4 style={{marginTop: '20px'}}>Option 2: Netlify (FREE with custom domain)</h4>
+                        <ol>
+                            <li>Go to netlify.com (free signup)</li>
+                            <li>Drag and drop this HTML file</li>
+                            <li>Get instant free hosting</li>
+                            <li>Optional: Add custom domain</li>
+                        </ol>
+
+                        <h4 style={{marginTop: '20px'}}>Option 3: Vercel (FREE & Fast)</h4>
+                        <ol>
+                            <li>Go to vercel.com (free signup)</li>
+                            <li>Import from GitHub or upload file</li>
+                            <li>Deploy in seconds</li>
+                            <li>Free SSL & custom domain</li>
+                        </ol>
+                    </div>
+
+                    <div className="card">
+                        <h3>🔒 Data Storage</h3>
+                        <p>
+                            This system uses <strong>browser localStorage</strong> - all data stays on the user's device. 
+                            This means:
+                        </p>
+                        <ul>
+                            <li>✅ 100% FREE (no database costs)</li>
+                            <li>✅ Fast performance</li>
+                            <li>✅ No server needed</li>
+                            <li>⚠️ Data is per-browser (clearing browser data will reset)</li>
+                            <li>⚠️ Each user has their own copy of data</li>
+                        </ul>
+                    </div>
+
+                    <div className="card">
+                        <h3>👥 User Roles</h3>
+                        <ul>
+                            <li><strong>Admin:</strong> Full access - can add/edit/delete everything</li>
+                            <li><strong>Team:</strong> Can manage services, chat, and deadlines</li>
+                            <li><strong>Client:</strong> Can view services, chat, credentials, and deadlines</li>
+                        </ul>
+                    </div>
+
+                    <div className="card">
+                        <h3>🎨 Customization</h3>
+                        <p>You can customize:</p>
+                        <ul>
+                            <li>Company name (currently: Vortex Digital AI)</li>
+                            <li>Colors and branding</li>
+                            <li>Services list</li>
+                            <li>Add more features as needed</li>
+                        </ul>
+                    </div>
+
+                    <div className="info-box" style={{background: '#fff3cd', borderColor: '#ffc107'}}>
+                        <h3 style={{color: '#856404'}}>⚡ Pro Tip</h3>
+                        <p style={{color: '#856404'}}>
+                            For shared data between users, you'll need a backend database (Firebase, Supabase). 
+                            But this current setup is perfect for individual client portals or small teams!
+                        </p>
+                    </div>
+
+                    <div className="card">
+                        <h3>📧 Need Help?</h3>
+                        <p>
+                            Contact Vortex Digital AI support for assistance with setup, customization, or adding new features!
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
