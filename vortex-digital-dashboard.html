@@ -3,102 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vortex Digital AI - Ultimate Dashboard</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Vortex Digital AI - Fast Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
-        :root {
-            --primary: #6366f1;
-            --secondary: #8b5cf6;
-            --accent: #ec4899;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --dark: #1e293b;
-            --light: #f8fafc;
-        }
-        
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-        
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-        
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
         
         .container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 10px;
+            padding: 20px;
         }
         
-        @media (min-width: 768px) {
-            .container {
-                padding: 20px;
-            }
+        .hidden {
+            display: none !important;
         }
         
-        .login-container {
+        .login-page {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 15px;
         }
         
         .login-box {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            padding: 30px 20px;
+            background: white;
+            padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             width: 100%;
-            max-width: 420px;
-            animation: slideIn 0.5s ease;
-        }
-        
-        @media (min-width: 768px) {
-            .login-box {
-                padding: 50px 40px;
-            }
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            max-width: 400px;
         }
         
         .logo {
@@ -106,41 +49,10 @@
             margin-bottom: 30px;
         }
         
-        .logo-icon {
-            font-size: 50px;
-            animation: pulse 2s infinite;
-        }
-        
-        @media (min-width: 768px) {
-            .logo-icon {
-                font-size: 60px;
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
         .logo h1 {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 26px;
-            font-weight: 700;
-            margin: 15px 0 5px 0;
-        }
-        
-        @media (min-width: 768px) {
-            .logo h1 {
-                font-size: 32px;
-            }
-        }
-        
-        .logo p {
-            color: #64748b;
-            font-size: 13px;
-            font-weight: 500;
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
         }
         
         .form-group {
@@ -150,1688 +62,857 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: var(--dark);
+            color: #333;
             font-weight: 600;
-            font-size: 13px;
         }
         
-        @media (min-width: 768px) {
-            .form-group label {
-                font-size: 14px;
-            }
-        }
-        
-        .form-group input, .form-group select, .form-group textarea {
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 14px;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s;
-            background: white;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
         }
         
-        @media (min-width: 768px) {
-            .form-group input, .form-group select, .form-group textarea {
-                padding: 14px 15px;
-                font-size: 15px;
-            }
-        }
-        
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            border-color: #667eea;
         }
         
         .btn {
             width: 100%;
-            padding: 13px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 15px;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        @media (min-width: 768px) {
-            .btn {
-                padding: 15px;
-                font-size: 16px;
-            }
+            margin-bottom: 10px;
         }
         
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+            opacity: 0.9;
         }
         
         .btn-secondary {
-            background: linear-gradient(135deg, #64748b, #475569);
-        }
-        
-        .btn-danger {
-            background: linear-gradient(135deg, var(--danger), #dc2626);
+            background: #6c757d;
         }
         
         .btn-success {
-            background: linear-gradient(135deg, var(--success), #059669);
+            background: #28a745;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
         }
         
         .dashboard {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
+            background: white;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @media (min-width: 768px) {
-            .dashboard {
-                border-radius: 25px;
-            }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
         
         .header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 15px 20px;
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        @media (min-width: 768px) {
-            .header {
-                padding: 25px 40px;
-                flex-wrap: nowrap;
-            }
         }
         
         .header h1 {
-            font-size: 20px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        @media (min-width: 768px) {
-            .header h1 {
-                font-size: 28px;
-                gap: 12px;
-            }
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        @media (min-width: 768px) {
-            .user-info {
-                gap: 20px;
-            }
-        }
-        
-        .user-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--warning));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-        }
-        
-        @media (min-width: 768px) {
-            .user-avatar {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
+            font-size: 24px;
         }
         
         .logout-btn {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background: rgba(255,255,255,0.2);
             border: 2px solid white;
             color: white;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s;
-            font-family: 'Poppins', sans-serif;
-            font-size: 13px;
-        }
-        
-        @media (min-width: 768px) {
-            .logout-btn {
-                padding: 10px 24px;
-                border-radius: 10px;
-                font-size: 14px;
-            }
         }
         
         .logout-btn:hover {
             background: white;
-            color: var(--primary);
+            color: #667eea;
         }
         
-        .main-content {
+        .tabs {
             display: flex;
-            flex-direction: column;
-            min-height: 500px;
-        }
-        
-        @media (min-width: 768px) {
-            .main-content {
-                flex-direction: row;
-                min-height: 650px;
-            }
-        }
-        
-        .sidebar {
-            width: 100%;
-            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-            padding: 15px 0;
-            border-bottom: 2px solid #e2e8f0;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        @media (min-width: 768px) {
-            .sidebar {
-                width: 280px;
-                padding: 30px 0;
-                border-bottom: none;
-                border-right: 2px solid #e2e8f0;
-                max-height: none;
-            }
-        }
-        
-        .nav-item {
-            padding: 12px 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
+            background: #f8f9fa;
+            padding: 10px;
             gap: 10px;
-            color: var(--dark);
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
             font-weight: 600;
-            font-size: 14px;
-            margin: 3px 10px;
-            border-radius: 10px;
+            color: #333;
+            transition: all 0.3s;
         }
         
-        @media (min-width: 768px) {
-            .nav-item {
-                padding: 18px 30px;
-                gap: 15px;
-                font-size: 15px;
-                margin: 5px 15px;
-                border-radius: 12px;
-            }
+        .tab:hover {
+            background: #e9ecef;
         }
         
-        .nav-item i {
-            font-size: 18px;
-            width: 22px;
-        }
-        
-        @media (min-width: 768px) {
-            .nav-item i {
-                font-size: 20px;
-                width: 25px;
-            }
-        }
-        
-        .nav-item:hover {
-            background: rgba(99, 102, 241, 0.1);
-            transform: translateX(3px);
-        }
-        
-        @media (min-width: 768px) {
-            .nav-item:hover {
-                transform: translateX(5px);
-            }
-        }
-        
-        .nav-item.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
         
-        .content-area {
-            flex: 1;
-            padding: 20px 15px;
+        .content {
+            padding: 30px;
+            max-height: 600px;
             overflow-y: auto;
-            max-height: 500px;
-        }
-        
-        @media (min-width: 768px) {
-            .content-area {
-                padding: 40px;
-                max-height: 650px;
-            }
-        }
-        
-        .content-area::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .content-area::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        
-        .content-area::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
         }
         
         .section-title {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             margin-bottom: 20px;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        @media (min-width: 768px) {
-            .section-title {
-                font-size: 28px;
-                margin-bottom: 25px;
-                gap: 12px;
-            }
+            color: #333;
         }
         
         .service-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-        
-        @media (min-width: 640px) {
-            .service-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .service-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-            }
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
         
         .service-card {
-            background: linear-gradient(135deg, #ffffff, #f8fafc);
+            background: #f8f9fa;
             padding: 20px;
             border-radius: 12px;
-            border: 2px solid #e2e8f0;
+            border: 2px solid #e0e0e0;
             transition: all 0.3s;
-            cursor: pointer;
-        }
-        
-        @media (min-width: 768px) {
-            .service-card {
-                padding: 25px;
-                border-radius: 15px;
-            }
         }
         
         .service-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15);
+            border-color: #667eea;
             transform: translateY(-3px);
         }
         
-        @media (min-width: 768px) {
-            .service-card:hover {
-                transform: translateY(-5px);
-            }
-        }
-        
-        .service-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            font-size: 24px;
-            color: white;
-        }
-        
-        @media (min-width: 768px) {
-            .service-icon {
-                width: 60px;
-                height: 60px;
-                border-radius: 12px;
-                margin-bottom: 15px;
-                font-size: 28px;
-            }
-        }
-        
-        .service-card h4 {
-            color: var(--dark);
-            margin-bottom: 8px;
-            font-size: 16px;
-            font-weight: 700;
-        }
-        
-        @media (min-width: 768px) {
-            .service-card h4 {
-                margin-bottom: 10px;
-                font-size: 18px;
-            }
+        .service-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
         }
         
         .service-card p {
-            color: #64748b;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 12px;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
         }
         
-        @media (min-width: 768px) {
-            .service-card p {
-                font-size: 14px;
-                line-height: 1.6;
-                margin-bottom: 15px;
-            }
+        .price {
+            color: #28a745;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
         
         .select-btn {
-            padding: 8px 20px;
-            background: linear-gradient(135deg, var(--success), #059669);
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
             color: white;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
             cursor: pointer;
-            font-size: 13px;
-            font-family: 'Poppins', sans-serif;
-            width: 100%;
-            transition: all 0.3s;
-        }
-        
-        @media (min-width: 768px) {
-            .select-btn {
-                padding: 10px 24px;
-                border-radius: 10px;
-                font-size: 14px;
-                width: auto;
-            }
+            font-weight: 600;
         }
         
         .select-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-        }
-        
-        .selected {
-            border-color: var(--success) !important;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.05)) !important;
+            background: #218838;
         }
         
         .selected .select-btn {
-            background: linear-gradient(135deg, var(--danger), #dc2626);
+            background: #dc3545;
         }
         
         .chat-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            height: 500px;
             display: flex;
             flex-direction: column;
-            height: 400px;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 2px solid #e2e8f0;
         }
         
-        @media (min-width: 768px) {
-            .chat-container {
-                height: 550px;
-                border-radius: 15px;
-            }
-        }
-        
-        .chat-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 15px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-        }
-        
-        @media (min-width: 768px) {
-            .chat-header {
-                padding: 20px;
-                gap: 12px;
-                font-size: 16px;
-            }
-        }
-        
-        .chat-messages {
+        .messages {
             flex: 1;
             overflow-y: auto;
-            padding: 15px;
-            background: #f8fafc;
-        }
-        
-        @media (min-width: 768px) {
-            .chat-messages {
-                padding: 25px;
-            }
+            margin-bottom: 15px;
         }
         
         .message {
-            padding: 12px 15px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            max-width: 85%;
-            animation: messageSlide 0.3s ease;
-            font-size: 13px;
-        }
-        
-        @media (min-width: 768px) {
-            .message {
-                padding: 15px 20px;
-                border-radius: 15px;
-                margin-bottom: 15px;
-                max-width: 70%;
-                font-size: 14px;
-            }
-        }
-        
-        @keyframes messageSlide {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 70%;
         }
         
         .message.sent {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: #667eea;
             color: white;
             margin-left: auto;
-            border-bottom-right-radius: 5px;
         }
         
         .message.received {
             background: white;
-            color: var(--dark);
-            border: 2px solid #e2e8f0;
-            border-bottom-left-radius: 5px;
-        }
-        
-        .message-header {
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            opacity: 0.9;
-        }
-        
-        @media (min-width: 768px) {
-            .message-header {
-                font-size: 12px;
-                margin-bottom: 6px;
-            }
-        }
-        
-        .chat-input-container {
-            display: flex;
-            gap: 8px;
-            padding: 12px;
-            background: white;
-            border-top: 2px solid #e2e8f0;
-        }
-        
-        @media (min-width: 768px) {
-            .chat-input-container {
-                gap: 12px;
-                padding: 20px;
-            }
+            color: #333;
         }
         
         .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
             flex: 1;
-            padding: 10px 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 13px;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s;
-        }
-        
-        @media (min-width: 768px) {
-            .chat-input {
-                padding: 14px 18px;
-                border-radius: 12px;
-                font-size: 15px;
-            }
-        }
-        
-        .chat-input:focus {
-            outline: none;
-            border-color: var(--primary);
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
         }
         
         .send-btn {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 12px 24px;
+            background: #667eea;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s;
-            font-size: 13px;
         }
         
-        @media (min-width: 768px) {
-            .send-btn {
-                padding: 14px 28px;
-                border-radius: 12px;
-                font-size: 14px;
-            }
-        }
-        
-        .send-btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        .card {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        @media (min-width: 768px) {
-            .card {
-                border-radius: 15px;
-                padding: 25px;
-                margin-bottom: 25px;
-            }
-        }
-        
-        .card h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 18px;
-            font-weight: 700;
-        }
-        
-        @media (min-width: 768px) {
-            .card h3 {
-                margin-bottom: 20px;
-                font-size: 20px;
-            }
-        }
-        
-        .modal-overlay {
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        
+        .modal.show {
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 999;
-            animation: fadeIn 0.3s ease;
-            padding: 15px;
         }
         
-        .modal {
+        .modal-content {
             background: white;
-            padding: 25px;
+            padding: 30px;
             border-radius: 15px;
             max-width: 500px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: modalPop 0.3s ease;
+            width: 90%;
         }
         
-        @media (min-width: 768px) {
-            .modal {
-                padding: 40px;
-                border-radius: 20px;
-            }
-        }
-        
-        @keyframes modalPop {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        .modal h3 {
+        .modal-content h3 {
             margin-bottom: 20px;
-            color: var(--dark);
-            font-size: 20px;
         }
         
-        @media (min-width: 768px) {
-            .modal h3 {
-                font-size: 24px;
-            }
-        }
-        
-        .notification-popup {
+        .notification {
             position: fixed;
-            top: 15px;
-            right: 15px;
+            top: 20px;
+            right: 20px;
             background: white;
             padding: 15px 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             z-index: 1000;
-            animation: slideInRight 0.5s ease;
-            max-width: 300px;
-            font-size: 13px;
+            display: none;
         }
         
-        @media (min-width: 768px) {
-            .notification-popup {
-                top: 20px;
-                right: 20px;
-                padding: 20px 25px;
-                border-radius: 15px;
-                max-width: 350px;
-                font-size: 14px;
-            }
+        .notification.show {
+            display: block;
+            animation: slideIn 0.3s ease;
         }
         
-        @keyframes slideInRight {
+        @keyframes slideIn {
             from {
-                opacity: 0;
-                transform: translateX(100px);
+                transform: translateX(400px);
             }
             to {
-                opacity: 1;
                 transform: translateX(0);
             }
         }
         
-        .notification-popup.success {
-            border-left: 5px solid var(--success);
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
         }
         
-        .notification-popup.error {
-            border-left: 5px solid var(--danger);
+        .team-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
         }
         
-        .notification-popup.info {
-            border-left: 5px solid var(--primary);
-        }
-        
-        .small-btn {
-            padding: 8px 16px;
-            font-size: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-left: 8px;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s;
-        }
-        
-        @media (min-width: 768px) {
-            .small-btn {
-                padding: 10px 20px;
-                font-size: 14px;
-                border-radius: 10px;
-                margin-left: 10px;
-            }
-        }
-        
-        .small-btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        .ai-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: white;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            margin-left: 8px;
-        }
-        
-        @media (min-width: 768px) {
-            .ai-badge {
-                padding: 5px 15px;
-                font-size: 12px;
-            }
-        }
-        
-        .typing-indicator {
-            display: flex;
-            gap: 5px;
-            padding: 10px;
-        }
-        
-        .typing-dot {
-            width: 8px;
-            height: 8px;
+        .avatar {
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            background: var(--primary);
-            animation: typing 1.4s infinite;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 auto 15px;
         }
         
-        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-        
-        @keyframes typing {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-10px); }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
         }
         
-        @media (max-width: 767px) {
-            .user-info span {
-                display: none;
+        .badge-admin {
+            background: #667eea;
+            color: white;
+        }
+        
+        .badge-team {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .badge-client {
+            background: #28a745;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="animated-bg"></div>
-    <div id="root"></div>
-
-    <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
-
-        // Helper functions
-        const storage = {
-            get: (key) => {
-                try {
-                    return JSON.parse(localStorage.getItem(key));
-                } catch {
-                    return null;
-                }
-            },
-            set: (key, value) => {
-                localStorage.setItem(key, JSON.stringify(value));
-            }
-        };
-
-        // WhatsApp notification
-        const sendWhatsAppNotification = (message) => {
-            const phoneNumber = '923328508839';
-            const text = encodeURIComponent(message);
-            window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
-        };
-
-        // AI Auto-Response System
-        const getAIResponse = (userMessage) => {
-            const message = userMessage.toLowerCase();
+    <div id="notification" class="notification"></div>
+    
+    <!-- Login Page -->
+    <div id="loginPage" class="login-page">
+        <div class="login-box">
+            <div class="logo">
+                <h1>🚀 Vortex Digital AI</h1>
+                <p>Client Management Dashboard</p>
+            </div>
             
-            if (message.includes('price') || message.includes('cost') || message.includes('kitna')) {
-                return 'Our prices vary based on your requirements. Please select a service from the Services tab, and you can set your own budget. We\'ll work within your price range! 💰';
-            }
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email">
+            </div>
             
-            if (message.includes('deadline') || message.includes('time') || message.includes('kitne din')) {
-                return 'You can select your own deadline when choosing a service! We offer flexible timelines from 1 day to 3 months. ⏰';
-            }
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password">
+            </div>
             
-            if (message.includes('service') || message.includes('kya karte')) {
-                return 'We offer 40+ services including Graphics Design, Web Development, Digital Marketing, SEO, Video Editing, and much more! Check our Services tab to explore all options. 🚀';
-            }
+            <button class="btn" onclick="login()">Login</button>
+            <button class="btn btn-secondary" onclick="showSignup()">Sign Up</button>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="container hidden">
+        <div class="dashboard">
+            <div class="header">
+                <h1>🚀 Vortex Digital AI</h1>
+                <div>
+                    <span id="userName"></span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
             
-            if (message.includes('hello') || message.includes('hi') || message.includes('assalam')) {
-                return 'Hello! 👋 Welcome to Vortex Digital AI! How can I help you today? Feel free to ask about our services, pricing, or deadlines.';
-            }
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('services')">📋 Services</button>
+                <button class="tab" onclick="showTab('selected')">✅ My Selected</button>
+                <button class="tab" onclick="showTab('chat')">💬 Chat AI</button>
+                <button class="tab" onclick="showTab('team')">👥 Team</button>
+                <button class="tab" onclick="showTab('guide')">📖 Guide</button>
+            </div>
             
-            if (message.includes('thank') || message.includes('thanks') || message.includes('shukriya')) {
-                return 'You\'re welcome! 😊 If you need anything else, I\'m here to help. Feel free to select services and customize your project!';
-            }
-            
-            return 'Thank you for your message! 🤖 Our AI assistant is here to help. You can:\n\n✅ Browse 40+ services in the Services tab\n✅ Set your own price and deadline\n✅ Chat with our team for custom quotes\n\nWhat would you like to know more about?';
-        };
-
-        // Initialize data with 11 accounts
-        if (!storage.get('users')) {
-            storage.set('users', [
-                // 1 Admin
-                { id: 1, email: 'admin@vortexdigital.ai', password: 'admin@Pakistan', name: 'Admin', role: 'admin' },
-                // 10 Team Members
-                { id: 2, email: 'team1@vortexdigital.ai', password: 'team@Pakistan1', name: 'Team Member 1', role: 'team' },
-                { id: 3, email: 'team2@vortexdigital.ai', password: 'team@Pakistan2', name: 'Team Member 2', role: 'team' },
-                { id: 4, email: 'team3@vortexdigital.ai', password: 'team@Pakistan3', name: 'Team Member 3', role: 'team' },
-                { id: 5, email: 'team4@vortexdigital.ai', password: 'team@Pakistan4', name: 'Team Member 4', role: 'team' },
-                { id: 6, email: 'team5@vortexdigital.ai', password: 'team@Pakistan5', name: 'Team Member 5', role: 'team' },
-                { id: 7, email: 'team6@vortexdigital.ai', password: 'team@Pakistan6', name: 'Team Member 6', role: 'team' },
-                { id: 8, email: 'team7@vortexdigital.ai', password: 'team@Pakistan7', name: 'Team Member 7', role: 'team' },
-                { id: 9, email: 'team8@vortexdigital.ai', password: 'team@Pakistan8', name: 'Team Member 8', role: 'team' },
-                { id: 10, email: 'team9@vortexdigital.ai', password: 'team@Pakistan9', name: 'Team Member 9', role: 'team' },
-                { id: 11, email: 'team10@vortexdigital.ai', password: 'team@Pakistan10', name: 'Team Member 10', role: 'team' }
-            ]);
-        }
-
-        // All Fiverr Services Categories
-        if (!storage.get('services')) {
-            storage.set('services', [
-                // Graphics & Design (10 services)
-                { id: 1, name: 'Logo Design', description: 'Professional custom logo design for your brand', category: 'Graphics & Design', icon: '🎨', priceRange: '$50 - $500' },
-                { id: 2, name: 'Business Card Design', description: 'Creative business card designs', category: 'Graphics & Design', icon: '💳', priceRange: '$20 - $200' },
-                { id: 3, name: 'Brochure Design', description: 'Eye-catching brochure designs', category: 'Graphics & Design', icon: '📄', priceRange: '$30 - $300' },
-                { id: 4, name: 'Social Media Design', description: 'Professional social media graphics', category: 'Graphics & Design', icon: '📱', priceRange: '$15 - $150' },
-                { id: 5, name: 'Banner Design', description: 'Web and print banner designs', category: 'Graphics & Design', icon: '🏷️', priceRange: '$25 - $250' },
+            <div class="content">
+                <!-- Services Tab -->
+                <div id="servicesTab">
+                    <h2 class="section-title">Our Services (40+)</h2>
+                    <div id="servicesList" class="service-grid"></div>
+                </div>
                 
-                // Digital Marketing (10 services)
-                { id: 6, name: 'SEO Services', description: 'Search Engine Optimization to rank higher', category: 'Digital Marketing', icon: '🚀', priceRange: '$100 - $2000' },
-                { id: 7, name: 'Social Media Marketing', description: 'Complete social media campaigns', category: 'Digital Marketing', icon: '📊', priceRange: '$150 - $1500' },
-                { id: 8, name: 'Email Marketing', description: 'Professional email marketing campaigns', category: 'Digital Marketing', icon: '📧', priceRange: '$80 - $800' },
-                { id: 9, name: 'PPC Advertising', description: 'Google Ads and Facebook Ads management', category: 'Digital Marketing', icon: '💰', priceRange: '$200 - $3000' },
-                { id: 10, name: 'Influencer Marketing', description: 'Connect with influencers for your brand', category: 'Digital Marketing', icon: '⭐', priceRange: '$300 - $5000' },
+                <!-- Selected Tab -->
+                <div id="selectedTab" class="hidden">
+                    <h2 class="section-title">My Selected Services</h2>
+                    <div id="selectedList" class="service-grid"></div>
+                </div>
                 
-                // Writing & Translation (5 services)
-                { id: 11, name: 'Article Writing', description: 'High-quality article and blog writing', category: 'Writing & Translation', icon: '✍️', priceRange: '$20 - $300' },
-                { id: 12, name: 'Copywriting', description: 'Persuasive sales and marketing copy', category: 'Writing & Translation', icon: '📝', priceRange: '$50 - $500' },
-                { id: 13, name: 'Translation Services', description: 'Professional translation in 50+ languages', category: 'Writing & Translation', icon: '🌍', priceRange: '$30 - $400' },
-                { id: 14, name: 'Content Writing', description: 'Website and SEO content writing', category: 'Writing & Translation', icon: '📄', priceRange: '$40 - $600' },
-                { id: 15, name: 'Proofreading & Editing', description: 'Professional proofreading services', category: 'Writing & Translation', icon: '✔️', priceRange: '$15 - $200' },
-                
-                // Video & Animation (5 services)
-                { id: 16, name: 'Video Editing', description: 'Professional video editing services', category: 'Video & Animation', icon: '🎬', priceRange: '$50 - $1000' },
-                { id: 17, name: 'Animated Explainer Videos', description: 'Engaging animated explainer videos', category: 'Video & Animation', icon: '🎥', priceRange: '$100 - $2000' },
-                { id: 18, name: 'Whiteboard Animation', description: 'Whiteboard style animated videos', category: 'Video & Animation', icon: '📝', priceRange: '$80 - $1500' },
-                { id: 19, name: 'Logo Animation', description: 'Animated logo intros and outros', category: 'Video & Animation', icon: '🎞️', priceRange: '$30 - $500' },
-                { id: 20, name: 'YouTube Video Editing', description: 'Professional YouTube video editing', category: 'Video & Animation', icon: '📹', priceRange: '$40 - $800' },
-                
-                // Programming & Tech (10 services)
-                { id: 21, name: 'Website Development', description: 'Custom responsive website development', category: 'Programming & Tech', icon: '🌐', priceRange: '$200 - $5000' },
-                { id: 22, name: 'Mobile App Development', description: 'iOS and Android app development', category: 'Programming & Tech', icon: '📱', priceRange: '$500 - $10000' },
-                { id: 23, name: 'WordPress Development', description: 'Custom WordPress website development', category: 'Programming & Tech', icon: '💻', priceRange: '$150 - $3000' },
-                { id: 24, name: 'E-commerce Development', description: 'Online store development (Shopify, WooCommerce)', category: 'Programming & Tech', icon: '🛒', priceRange: '$300 - $7000' },
-                { id: 25, name: 'Python Development', description: 'Custom Python scripts and applications', category: 'Programming & Tech', icon: '🐍', priceRange: '$100 - $2000' },
-                { id: 26, name: 'JavaScript Development', description: 'Modern JavaScript web applications', category: 'Programming & Tech', icon: '⚡', priceRange: '$150 - $3000' },
-                { id: 27, name: 'Database Design', description: 'Database architecture and optimization', category: 'Programming & Tech', icon: '🗄️', priceRange: '$100 - $2500' },
-                { id: 28, name: 'API Development', description: 'RESTful API development and integration', category: 'Programming & Tech', icon: '🔌', priceRange: '$200 - $4000' },
-                { id: 29, name: 'Chatbot Development', description: 'AI chatbot development for websites', category: 'Programming & Tech', icon: '🤖', priceRange: '$150 - $3000' },
-                { id: 30, name: 'Cybersecurity', description: 'Website security and penetration testing', category: 'Programming & Tech', icon: '🔒', priceRange: '$200 - $5000' },
-                
-                // Business (5 services)
-                { id: 31, name: 'Business Plan Writing', description: 'Professional business plan creation', category: 'Business', icon: '📊', priceRange: '$100 - $1000' },
-                { id: 32, name: 'Financial Consulting', description: 'Financial analysis and consulting', category: 'Business', icon: '💼', priceRange: '$150 - $2000' },
-                { id: 33, name: 'Market Research', description: 'Comprehensive market research reports', category: 'Business', icon: '🔍', priceRange: '$80 - $1500' },
-                { id: 34, name: 'Virtual Assistant', description: 'Professional virtual assistant services', category: 'Business', icon: '👔', priceRange: '$10 - $50/hour' },
-                { id: 35, name: 'Legal Consulting', description: 'Business legal advice and consulting', category: 'Business', icon: '⚖️', priceRange: '$100 - $3000' },
-                
-                // Data (3 services)
-                { id: 36, name: 'Data Entry', description: 'Fast and accurate data entry services', category: 'Data', icon: '⌨️', priceRange: '$5 - $100' },
-                { id: 37, name: 'Data Analysis', description: 'Statistical data analysis and visualization', category: 'Data', icon: '📈', priceRange: '$50 - $1000' },
-                { id: 38, name: 'Excel Data Processing', description: 'Advanced Excel data processing', category: 'Data', icon: '📊', priceRange: '$30 - $500' },
-                
-                // Lifestyle (2 services)
-                { id: 39, name: 'Fitness Coaching', description: 'Online fitness training and meal plans', category: 'Lifestyle', icon: '💪', priceRange: '$50 - $500' },
-                { id: 40, name: 'Travel Planning', description: 'Custom travel itinerary planning', category: 'Lifestyle', icon: '✈️', priceRange: '$30 - $300' }
-            ]);
-        }
-
-        if (!storage.get('messages')) {
-            storage.set('messages', [
-                { id: 1, from: 'AI Assistant', text: 'Welcome to Vortex Digital AI! 🤖 I\'m your AI assistant. How can I help you today?', time: new Date().toLocaleTimeString(), sent: false, isAI: true }
-            ]);
-        }
-
-        function App() {
-            const [currentUser, setCurrentUser] = useState(storage.get('currentUser'));
-            const [activeTab, setActiveTab] = useState('services');
-            const [notifications, setNotifications] = useState([]);
-
-            const showNotification = (message, type = 'info') => {
-                const id = Date.now();
-                setNotifications(prev => [...prev, { id, message, type }]);
-                setTimeout(() => {
-                    setNotifications(prev => prev.filter(n => n.id !== id));
-                }, 3000);
-            };
-
-            const logout = () => {
-                storage.set('currentUser', null);
-                setCurrentUser(null);
-            };
-
-            if (!currentUser) {
-                return <LoginPage setCurrentUser={setCurrentUser} showNotification={showNotification} />;
-            }
-
-            return (
-                <div className="container">
-                    {notifications.map(notif => (
-                        <div key={notif.id} className={`notification-popup ${notif.type}`}>
-                            <strong>{notif.type === 'success' ? '✅' : notif.type === 'error' ? '❌' : 'ℹ️'}</strong> {notif.message}
+                <!-- Chat Tab -->
+                <div id="chatTab" class="hidden">
+                    <h2 class="section-title">AI-Powered Chat 🤖</h2>
+                    <div class="chat-container">
+                        <div id="messages" class="messages"></div>
+                        <div class="chat-input">
+                            <input type="text" id="messageInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage()">
+                            <button class="send-btn" onclick="sendMessage()">Send</button>
                         </div>
-                    ))}
+                    </div>
+                </div>
+                
+                <!-- Team Tab -->
+                <div id="teamTab" class="hidden">
+                    <h2 class="section-title">Our Team (11 Members)</h2>
+                    <div id="teamList" class="team-grid"></div>
+                </div>
+                
+                <!-- Guide Tab -->
+                <div id="guideTab" class="hidden">
+                    <h2 class="section-title">Complete Guide</h2>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <h3 style="color: #667eea;">🚀 Login Credentials</h3>
+                        <p><strong>Admin:</strong> admin@vortexdigital.ai / admin@Pakistan</p>
+                        <p><strong>Team 1-10:</strong> team1@vortexdigital.ai / team@Pakistan1 (and so on)</p>
+                        <p><strong>Clients:</strong> Sign up with any email</p>
+                    </div>
                     
-                    <div className="dashboard">
-                        <div className="header">
-                            <h1>
-                                <i className="fas fa-rocket"></i>
-                                <span style={{display: window.innerWidth > 640 ? 'inline' : 'none'}}>Vortex Digital AI</span>
-                                <span style={{display: window.innerWidth <= 640 ? 'inline' : 'none'}}>Vortex</span>
-                            </h1>
-                            <div className="user-info">
-                                <div className="user-avatar">
-                                    {currentUser.name.charAt(0)}
-                                </div>
-                                <span>{currentUser.name}</span>
-                                <button className="logout-btn" onClick={logout}>
-                                    <i className="fas fa-sign-out-alt"></i> <span style={{display: window.innerWidth > 640 ? 'inline' : 'none'}}>Logout</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="main-content">
-                            <div className="sidebar">
-                                <div 
-                                    className={`nav-item ${activeTab === 'services' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('services')}
-                                >
-                                    <i className="fas fa-briefcase"></i> Services
-                                </div>
-                                <div 
-                                    className={`nav-item ${activeTab === 'selected' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('selected')}
-                                >
-                                    <i className="fas fa-check-circle"></i> My Selected
-                                </div>
-                                <div 
-                                    className={`nav-item ${activeTab === 'chat' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('chat')}
-                                >
-                                    <i className="fas fa-comments"></i> Chat <span className="ai-badge">AI</span>
-                                </div>
-                                <div 
-                                    className={`nav-item ${activeTab === 'team' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('team')}
-                                >
-                                    <i className="fas fa-users"></i> Team
-                                </div>
-                                <div 
-                                    className={`nav-item ${activeTab === 'guide' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('guide')}
-                                >
-                                    <i className="fas fa-book"></i> Guide
-                                </div>
-                            </div>
-                            <div className="content-area">
-                                {activeTab === 'services' && <ServicesTab currentUser={currentUser} showNotification={showNotification} />}
-                                {activeTab === 'selected' && <SelectedServicesTab currentUser={currentUser} showNotification={showNotification} />}
-                                {activeTab === 'chat' && <ChatTab currentUser={currentUser} showNotification={showNotification} />}
-                                {activeTab === 'team' && <TeamTab currentUser={currentUser} />}
-                                {activeTab === 'guide' && <GuideTab />}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function LoginPage({ setCurrentUser, showNotification }) {
-            const [email, setEmail] = useState('');
-            const [password, setPassword] = useState('');
-            const [isSignup, setIsSignup] = useState(false);
-            const [name, setName] = useState('');
-
-            const handleLogin = () => {
-                const users = storage.get('users') || [];
-                const user = users.find(u => u.email === email && u.password === password);
-                
-                if (user) {
-                    storage.set('currentUser', user);
-                    setCurrentUser(user);
-                } else {
-                    alert('❌ Invalid email or password!');
-                }
-            };
-
-            const handleSignup = () => {
-                if (!email || !password || !name) {
-                    alert('⚠️ Please fill all fields!');
-                    return;
-                }
-
-                const users = storage.get('users') || [];
-                
-                if (users.find(u => u.email === email)) {
-                    alert('❌ Email already exists!');
-                    return;
-                }
-
-                const newUser = {
-                    id: users.length + 1,
-                    email,
-                    password,
-                    name,
-                    role: 'client'
-                };
-
-                users.push(newUser);
-                storage.set('users', users);
-                storage.set('currentUser', newUser);
-                setCurrentUser(newUser);
-                
-                sendWhatsAppNotification(`🎉 New client registered: ${name} (${email})`);
-            };
-
-            return (
-                <div className="login-container">
-                    <div className="login-box">
-                        <div className="logo">
-                            <div className="logo-icon">🚀</div>
-                            <h1>Vortex Digital AI</h1>
-                            <p>Ultimate Client Management</p>
-                        </div>
-
-                        {!isSignup ? (
-                            <>
-                                <div className="form-group">
-                                    <label><i className="fas fa-envelope"></i> Email</label>
-                                    <input 
-                                        type="email" 
-                                        placeholder="Enter your email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label><i className="fas fa-lock"></i> Password</label>
-                                    <input 
-                                        type="password" 
-                                        placeholder="Enter your password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-                                    />
-                                </div>
-                                <button className="btn" onClick={handleLogin}>
-                                    <i className="fas fa-sign-in-alt"></i> Login
-                                </button>
-                                <p style={{textAlign: 'center', marginTop: '20px', color: '#64748b', fontSize: '13px'}}>
-                                    Don't have an account? 
-                                    <a href="#" onClick={(e) => { e.preventDefault(); setIsSignup(true); }} style={{color: 'var(--primary)', marginLeft: '5px', fontWeight: '600'}}>
-                                        Sign Up
-                                    </a>
-                                </p>
-                            </>
-                        ) : (
-                            <>
-                                <div className="form-group">
-                                    <label><i className="fas fa-user"></i> Full Name</label>
-                                    <input 
-                                        type="text" 
-                                        placeholder="Enter your name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label><i className="fas fa-envelope"></i> Email</label>
-                                    <input 
-                                        type="email" 
-                                        placeholder="Enter your email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label><i className="fas fa-lock"></i> Password</label>
-                                    <input 
-                                        type="password" 
-                                        placeholder="Create a password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                    />
-                                </div>
-                                <button className="btn btn-success" onClick={handleSignup}>
-                                    <i className="fas fa-user-plus"></i> Sign Up as Client
-                                </button>
-                                <p style={{textAlign: 'center', marginTop: '20px', color: '#64748b', fontSize: '13px'}}>
-                                    Already have an account? 
-                                    <a href="#" onClick={(e) => { e.preventDefault(); setIsSignup(false); }} style={{color: 'var(--primary)', marginLeft: '5px', fontWeight: '600'}}>
-                                        Login
-                                    </a>
-                                </p>
-                            </>
-                        )}
-                    </div>
-                </div>
-            );
-        }
-
-        function ServicesTab({ currentUser, showNotification }) {
-            const [services] = useState(storage.get('services') || []);
-            const [selectedServices, setSelectedServices] = useState(storage.get('selectedServices') || []);
-            const [categoryFilter, setCategoryFilter] = useState('All');
-            const [showModal, setShowModal] = useState(false);
-            const [currentService, setCurrentService] = useState(null);
-            const [customPrice, setCustomPrice] = useState('');
-            const [deadline, setDeadline] = useState('');
-
-            const categories = ['All', ...new Set(services.map(s => s.category))];
-
-            const filteredServices = categoryFilter === 'All' 
-                ? services 
-                : services.filter(s => s.category === categoryFilter);
-
-            const handleSelectService = (service) => {
-                const isSelected = selectedServices.find(s => s.id === service.id);
-                if (isSelected) {
-                    const updated = selectedServices.filter(s => s.id !== service.id);
-                    setSelectedServices(updated);
-                    storage.set('selectedServices', updated);
-                    showNotification('Service removed!', 'info');
-                } else {
-                    setCurrentService(service);
-                    setShowModal(true);
-                }
-            };
-
-            const confirmSelection = () => {
-                if (!customPrice || !deadline) {
-                    showNotification('Please enter price and deadline!', 'error');
-                    return;
-                }
-
-                const newSelection = {
-                    ...currentService,
-                    customPrice,
-                    deadline,
-                    selectedBy: currentUser.name,
-                    selectedAt: new Date().toLocaleString()
-                };
-
-                const updated = [...selectedServices, newSelection];
-                setSelectedServices(updated);
-                storage.set('selectedServices', updated);
-                
-                setShowModal(false);
-                setCustomPrice('');
-                setDeadline('');
-                setCurrentService(null);
-                
-                showNotification('Service added to your selection!', 'success');
-                
-                // Notify admin
-                sendWhatsAppNotification(`📦 ${currentUser.name} selected: ${currentService.name}\n💰 Budget: $${customPrice}\n📅 Deadline: ${deadline}`);
-            };
-
-            return (
-                <div>
-                    <h2 className="section-title">
-                        <i className="fas fa-briefcase"></i>
-                        Our Services (40+)
-                    </h2>
-
-                    <div style={{marginBottom: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap'}}>
-                        {categories.map(cat => (
-                            <button
-                                key={cat}
-                                onClick={() => setCategoryFilter(cat)}
-                                style={{
-                                    padding: '8px 16px',
-                                    borderRadius: '20px',
-                                    border: categoryFilter === cat ? 'none' : '2px solid #e2e8f0',
-                                    background: categoryFilter === cat ? 'linear-gradient(135deg, var(--primary), var(--secondary))' : 'white',
-                                    color: categoryFilter === cat ? 'white' : 'var(--dark)',
-                                    fontWeight: '600',
-                                    cursor: 'pointer',
-                                    fontSize: '12px',
-                                    fontFamily: 'Poppins'
-                                }}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
-
-                    <div className="service-grid">
-                        {filteredServices.map(service => {
-                            const isSelected = selectedServices.find(s => s.id === service.id);
-                            return (
-                                <div key={service.id} className={`service-card ${isSelected ? 'selected' : ''}`}>
-                                    <div className="service-icon">{service.icon}</div>
-                                    <h4>{service.name}</h4>
-                                    <p>{service.description}</p>
-                                    <p style={{fontSize: '12px', color: '#94a3b8', marginBottom: '10px'}}>
-                                        <strong>{service.category}</strong>
-                                    </p>
-                                    <p style={{fontSize: '13px', color: '#64748b', marginBottom: '12px'}}>
-                                        Suggested: {service.priceRange}
-                                    </p>
-                                    <button 
-                                        className="select-btn"
-                                        onClick={() => handleSelectService(service)}
-                                    >
-                                        {isSelected ? '✓ Selected - Remove' : '+ Select Service'}
-                                    </button>
-                                </div>
-                            );
-                        })}
-                    </div>
-
-                    {showModal && (
-                        <div className="modal-overlay" onClick={() => setShowModal(false)}>
-                            <div className="modal" onClick={(e) => e.stopPropagation()}>
-                                <h3>Customize Your Order</h3>
-                                <p style={{color: '#64748b', marginBottom: '20px'}}>
-                                    <strong>{currentService.name}</strong>
-                                </p>
-                                
-                                <div className="form-group">
-                                    <label>Your Budget (USD) *</label>
-                                    <input 
-                                        type="number"
-                                        placeholder="Enter your budget (e.g., 100)"
-                                        value={customPrice}
-                                        onChange={(e) => setCustomPrice(e.target.value)}
-                                    />
-                                    <p style={{fontSize: '12px', color: '#64748b', marginTop: '5px'}}>
-                                        Suggested: {currentService.priceRange}
-                                    </p>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Deadline *</label>
-                                    <select value={deadline} onChange={(e) => setDeadline(e.target.value)}>
-                                        <option value="">Select deadline</option>
-                                        <option value="24 hours">24 hours</option>
-                                        <option value="3 days">3 days</option>
-                                        <option value="7 days">7 days</option>
-                                        <option value="14 days">14 days</option>
-                                        <option value="1 month">1 month</option>
-                                        <option value="2 months">2 months</option>
-                                        <option value="3 months">3 months</option>
-                                    </select>
-                                </div>
-
-                                <div style={{display: 'flex', gap: '10px'}}>
-                                    <button className="btn btn-success" onClick={confirmSelection}>
-                                        Confirm Selection
-                                    </button>
-                                    <button className="btn btn-secondary" onClick={() => setShowModal(false)}>
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            );
-        }
-
-        function SelectedServicesTab({ currentUser, showNotification }) {
-            const [selectedServices, setSelectedServices] = useState(storage.get('selectedServices') || []);
-
-            const removeService = (id) => {
-                if (confirm('Remove this service?')) {
-                    const updated = selectedServices.filter(s => s.id !== id);
-                    setSelectedServices(updated);
-                    storage.set('selectedServices', updated);
-                    showNotification('Service removed!', 'success');
-                }
-            };
-
-            const totalBudget = selectedServices.reduce((sum, s) => sum + parseFloat(s.customPrice || 0), 0);
-
-            return (
-                <div>
-                    <h2 className="section-title">
-                        <i className="fas fa-check-circle"></i>
-                        My Selected Services ({selectedServices.length})
-                    </h2>
-
-                    {selectedServices.length === 0 ? (
-                        <div className="card" style={{textAlign: 'center', padding: '40px'}}>
-                            <i className="fas fa-inbox" style={{fontSize: '48px', color: '#cbd5e1', marginBottom: '15px'}}></i>
-                            <p style={{color: '#64748b'}}>No services selected yet</p>
-                        </div>
-                    ) : (
-                        <>
-                            <div className="card" style={{background: 'linear-gradient(135deg, var(--success), #059669)', color: 'white', marginBottom: '25px'}}>
-                                <h3 style={{color: 'white'}}>Total Budget: ${totalBudget}</h3>
-                                <p style={{opacity: 0.9'}}>Based on {selectedServices.length} selected services</p>
-                            </div>
-
-                            <div className="service-grid">
-                                {selectedServices.map(service => (
-                                    <div key={service.id} className="service-card">
-                                        <div className="service-icon">{service.icon}</div>
-                                        <h4>{service.name}</h4>
-                                        <p>{service.description}</p>
-                                        <div style={{marginTop: '15px', padding: '15px', background: '#f8fafc', borderRadius: '10px'}}>
-                                            <p style={{fontSize: '13px', marginBottom: '8px'}}>
-                                                <strong>💰 Your Budget:</strong> ${service.customPrice}
-                                            </p>
-                                            <p style={{fontSize: '13px', marginBottom: '8px'}}>
-                                                <strong>📅 Deadline:</strong> {service.deadline}
-                                            </p>
-                                            <p style={{fontSize: '12px', color: '#94a3b8'}}>
-                                                Selected on: {service.selectedAt}
-                                            </p>
-                                        </div>
-                                        {currentUser.role === 'client' && (
-                                            <button 
-                                                className="small-btn btn-danger"
-                                                style={{marginTop: '10px', width: '100%'}}
-                                                onClick={() => removeService(service.id)}
-                                            >
-                                                <i className="fas fa-trash"></i> Remove
-                                            </button>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        </>
-                    )}
-                </div>
-            );
-        }
-
-        function ChatTab({ currentUser, showNotification }) {
-            const [messages, setMessages] = useState(storage.get('messages') || []);
-            const [newMessage, setNewMessage] = useState('');
-            const [isTyping, setIsTyping] = useState(false);
-            const messagesEndRef = useRef(null);
-
-            useEffect(() => {
-                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-            }, [messages, isTyping]);
-
-            const sendMessage = () => {
-                if (!newMessage.trim()) return;
-
-                const message = {
-                    id: messages.length + 1,
-                    from: currentUser.name,
-                    text: newMessage,
-                    time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-                    sent: true,
-                    isAI: false
-                };
-
-                const updatedMessages = [...messages, message];
-                setMessages(updatedMessages);
-                storage.set('messages', updatedMessages);
-                setNewMessage('');
-                
-                // Send WhatsApp notification
-                if (currentUser.role === 'client') {
-                    sendWhatsAppNotification(`💬 ${currentUser.name}: ${newMessage.substring(0, 100)}`);
-                    showNotification('Message sent! Admin notified on WhatsApp.', 'success');
-                }
-                
-                // AI Auto-Response
-                setIsTyping(true);
-                setTimeout(() => {
-                    setIsTyping(false);
-                    const aiResponse = {
-                        id: updatedMessages.length + 1,
-                        from: 'AI Assistant',
-                        text: getAIResponse(newMessage),
-                        time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-                        sent: false,
-                        isAI: true
-                    };
-                    const withAI = [...updatedMessages, aiResponse];
-                    setMessages(withAI);
-                    storage.set('messages', withAI);
-                }, 2000);
-            };
-
-            return (
-                <div>
-                    <h2 className="section-title">
-                        <i className="fas fa-comments"></i>
-                        AI-Powered Chat <span className="ai-badge">FREE AI</span>
-                    </h2>
-                    
-                    <div className="chat-container">
-                        <div className="chat-header">
-                            <i className="fas fa-robot"></i>
-                            Chat with AI Assistant & Team
-                        </div>
-                        
-                        <div className="chat-messages">
-                            {messages.map(msg => (
-                                <div key={msg.id} className={`message ${msg.sent ? 'sent' : 'received'}`}>
-                                    <div className="message-header">
-                                        {msg.from} {msg.isAI && '🤖'} · {msg.time}
-                                    </div>
-                                    <div style={{whiteSpace: 'pre-line'}}>{msg.text}</div>
-                                </div>
-                            ))}
-                            {isTyping && (
-                                <div className="message received">
-                                    <div className="message-header">AI Assistant 🤖</div>
-                                    <div className="typing-indicator">
-                                        <div className="typing-dot"></div>
-                                        <div className="typing-dot"></div>
-                                        <div className="typing-dot"></div>
-                                    </div>
-                                </div>
-                            )}
-                            <div ref={messagesEndRef} />
-                        </div>
-                        
-                        <div className="chat-input-container">
-                            <input 
-                                type="text"
-                                className="chat-input"
-                                placeholder="Type your message..."
-                                value={newMessage}
-                                onChange={(e) => setNewMessage(e.target.value)}
-                                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                            />
-                            <button className="send-btn" onClick={sendMessage}>
-                                <i className="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function TeamTab({ currentUser }) {
-            const [users] = useState(storage.get('users') || []);
-
-            return (
-                <div>
-                    <h2 className="section-title">
-                        <i className="fas fa-users"></i>
-                        Our Team (11 Members)
-                    </h2>
-                    
-                    <div className="service-grid">
-                        {users.map(user => (
-                            <div key={user.id} className="card" style={{textAlign: 'center'}}>
-                                <div className="user-avatar" style={{width: '70px', height: '70px', fontSize: '28px', margin: '0 auto 15px'}}>
-                                    {user.name.charAt(0)}
-                                </div>
-                                <h4 style={{marginBottom: '8px'}}>{user.name}</h4>
-                                <p style={{fontSize: '13px', color: '#64748b', marginBottom: '12px'}}>
-                                    <i className="fas fa-envelope"></i> {user.email}
-                                </p>
-                                <span style={{
-                                    padding: '6px 15px',
-                                    borderRadius: '20px',
-                                    fontSize: '12px',
-                                    fontWeight: '600',
-                                    background: user.role === 'admin' ? 'linear-gradient(135deg, var(--primary), var(--secondary))' : user.role === 'team' ? 'linear-gradient(135deg, var(--warning), #d97706)' : 'linear-gradient(135deg, var(--success), #059669)',
-                                    color: 'white'
-                                }}>
-                                    {user.role.toUpperCase()}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            );
-        }
-
-        function GuideTab() {
-            return (
-                <div>
-                    <h2 className="section-title">
-                        <i className="fas fa-book"></i>
-                        Complete Guide
-                    </h2>
-                    
-                    <div className="card" style={{background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)', border: '2px solid #3b82f6'}}>
-                        <h3 style={{color: '#1e40af'}}>🚀 Welcome to Vortex Digital AI!</h3>
-                        <p style={{color: 'var(--dark)'}}>
-                            Your ultimate platform with 40+ services, AI chat, and custom pricing!
-                        </p>
-                    </div>
-
-                    <div className="card">
-                        <h3>✨ Key Features</h3>
-                        <ul style={{paddingLeft: '20px', lineHeight: '2'}}>
-                            <li><strong>40+ Services:</strong> All Fiverr categories covered</li>
-                            <li><strong>Custom Pricing:</strong> Clients set their own budget</li>
-                            <li><strong>Flexible Deadlines:</strong> From 24 hours to 3 months</li>
-                            <li><strong>AI Chatbot:</strong> Free AI assistant (auto-responses)</li>
-                            <li><strong>WhatsApp Alerts:</strong> Instant notifications to wa.me/923328508839</li>
-                            <li><strong>11 Team Accounts:</strong> 1 Admin + 10 Team Members</li>
-                            <li><strong>Mobile Responsive:</strong> Perfect on all devices</li>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <h3 style="color: #667eea;">✨ Features</h3>
+                        <ul style="padding-left: 20px; line-height: 2;">
+                            <li>40+ Services (All Fiverr categories)</li>
+                            <li>Custom Pricing (Client sets budget)</li>
+                            <li>Flexible Deadlines (24hrs - 3 months)</li>
+                            <li>AI Chatbot (Free auto-responses)</li>
+                            <li>WhatsApp Notifications (wa.me/923328508839)</li>
+                            <li>Mobile Responsive</li>
                         </ul>
                     </div>
-
-                    <div className="card">
-                        <h3>🔑 Login Credentials</h3>
-                        <p><strong>ADMIN:</strong></p>
-                        <p style={{background: '#f8fafc', padding: '10px', borderRadius: '8px', marginBottom: '10px'}}>
-                            Email: admin@vortexdigital.ai<br/>
-                            Password: admin@Pakistan
-                        </p>
-                        
-                        <p><strong>TEAM MEMBERS (10):</strong></p>
-                        <p style={{background: '#f8fafc', padding: '10px', borderRadius: '8px', marginBottom: '10px'}}>
-                            team1@vortexdigital.ai / team@Pakistan1<br/>
-                            team2@vortexdigital.ai / team@Pakistan2<br/>
-                            team3@vortexdigital.ai / team@Pakistan3<br/>
-                            ...and so on up to team10
-                        </p>
-
-                        <p><strong>CLIENTS:</strong></p>
-                        <p style={{background: '#f8fafc', padding: '10px', borderRadius: '8px'}}>
-                            Sign up with any email + custom password
-                        </p>
-                    </div>
-
-                    <div className="card">
-                        <h3>📱 How It Works (For Clients)</h3>
-                        <ol style={{paddingLeft: '20px', lineHeight: '2'}}>
-                            <li>Browse 40+ services in different categories</li>
-                            <li>Select any service you need</li>
-                            <li>Enter YOUR OWN BUDGET (not fixed prices!)</li>
-                            <li>Choose YOUR OWN DEADLINE</li>
-                            <li>Confirm selection</li>
-                            <li>Chat with AI or team for support</li>
-                            <li>Admin gets WhatsApp notification instantly</li>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px;">
+                        <h3 style="color: #667eea;">📱 How to Use</h3>
+                        <ol style="padding-left: 20px; line-height: 2;">
+                            <li>Browse services</li>
+                            <li>Select service</li>
+                            <li>Set your budget</li>
+                            <li>Choose deadline</li>
+                            <li>Chat with AI/team</li>
+                            <li>Get WhatsApp notifications</li>
                         </ol>
                     </div>
-
-                    <div className="card" style={{background: 'linear-gradient(135deg, #fef3c7, #fde68a)', border: '2px solid #f59e0b'}}>
-                        <h3 style={{color: '#92400e'}}>🤖 AI Assistant Features</h3>
-                        <ul style={{paddingLeft: '20px', color: 'var(--dark)', lineHeight: '2'}}>
-                            <li>Auto-responds to common questions</li>
-                            <li>Provides service information</li>
-                            <li>Explains pricing and deadlines</li>
-                            <li>24/7 available (FREE!)</li>
-                            <li>Team also receives messages</li>
-                        </ul>
-                    </div>
-
-                    <div className="card">
-                        <h3>📊 Service Categories (40+ Services)</h3>
-                        <ul style={{paddingLeft: '20px', lineHeight: '2'}}>
-                            <li>Graphics & Design (5 services)</li>
-                            <li>Digital Marketing (5 services)</li>
-                            <li>Writing & Translation (5 services)</li>
-                            <li>Video & Animation (5 services)</li>
-                            <li>Programming & Tech (10 services)</li>
-                            <li>Business (5 services)</li>
-                            <li>Data (3 services)</li>
-                            <li>Lifestyle (2 services)</li>
-                        </ul>
-                    </div>
-
-                    <div className="card">
-                        <h3>🔔 Notification System</h3>
-                        <p>When a client:</p>
-                        <ul style={{paddingLeft: '20px', lineHeight: '2'}}>
-                            <li>Selects a service → WhatsApp notification</li>
-                            <li>Sends a message → WhatsApp notification</li>
-                            <li>Signs up → WhatsApp notification</li>
-                        </ul>
-                        <p style={{marginTop: '10px'}}>
-                            <strong>WhatsApp:</strong> wa.me/923328508839
-                        </p>
-                    </div>
-
-                    <div className="card" style={{background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)', border: '2px solid #22c55e'}}>
-                        <h3 style={{color: '#166534'}}>💡 Pro Tips</h3>
-                        <ul style={{paddingLeft: '20px', color: 'var(--dark)', lineHeight: '2'}}>
-                            <li>Check WhatsApp regularly for client messages</li>
-                            <li>AI handles basic questions automatically</li>
-                            <li>Clients can select multiple services</li>
-                            <li>Budget is client-defined (flexible pricing)</li>
-                            <li>Mobile-friendly dashboard</li>
-                        </ul>
-                    </div>
                 </div>
-            );
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Selection Modal -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <h3>Customize Your Order</h3>
+            <p id="modalServiceName"></p>
+            
+            <div class="form-group">
+                <label>Your Budget (USD)</label>
+                <input type="number" id="modalPrice" placeholder="Enter your budget">
+            </div>
+            
+            <div class="form-group">
+                <label>Deadline</label>
+                <select id="modalDeadline">
+                    <option value="">Select deadline</option>
+                    <option value="24 hours">24 hours</option>
+                    <option value="3 days">3 days</option>
+                    <option value="7 days">7 days</option>
+                    <option value="14 days">14 days</option>
+                    <option value="1 month">1 month</option>
+                    <option value="2 months">2 months</option>
+                    <option value="3 months">3 months</option>
+                </select>
+            </div>
+            
+            <button class="btn btn-success" onclick="confirmSelection()">Confirm</button>
+            <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Data Storage
+        let users = JSON.parse(localStorage.getItem('users')) || [
+            { id: 1, email: 'admin@vortexdigital.ai', password: 'admin@Pakistan', name: 'Admin', role: 'admin' },
+            { id: 2, email: 'team1@vortexdigital.ai', password: 'team@Pakistan1', name: 'Team Member 1', role: 'team' },
+            { id: 3, email: 'team2@vortexdigital.ai', password: 'team@Pakistan2', name: 'Team Member 2', role: 'team' },
+            { id: 4, email: 'team3@vortexdigital.ai', password: 'team@Pakistan3', name: 'Team Member 3', role: 'team' },
+            { id: 5, email: 'team4@vortexdigital.ai', password: 'team@Pakistan4', name: 'Team Member 4', role: 'team' },
+            { id: 6, email: 'team5@vortexdigital.ai', password: 'team@Pakistan5', name: 'Team Member 5', role: 'team' },
+            { id: 7, email: 'team6@vortexdigital.ai', password: 'team@Pakistan6', name: 'Team Member 6', role: 'team' },
+            { id: 8, email: 'team7@vortexdigital.ai', password: 'team@Pakistan7', name: 'Team Member 7', role: 'team' },
+            { id: 9, email: 'team8@vortexdigital.ai', password: 'team@Pakistan8', name: 'Team Member 8', role: 'team' },
+            { id: 10, email: 'team9@vortexdigital.ai', password: 'team@Pakistan9', name: 'Team Member 9', role: 'team' },
+            { id: 11, email: 'team10@vortexdigital.ai', password: 'team@Pakistan10', name: 'Team Member 10', role: 'team' }
+        ];
+
+        let services = [
+            { id: 1, name: 'Logo Design', description: 'Professional custom logo design', category: 'Graphics & Design', icon: '🎨', price: '$50 - $500' },
+            { id: 2, name: 'Website Development', description: 'Custom responsive websites', category: 'Programming & Tech', icon: '🌐', price: '$200 - $5000' },
+            { id: 3, name: 'SEO Services', description: 'Search Engine Optimization', category: 'Digital Marketing', icon: '🚀', price: '$100 - $2000' },
+            { id: 4, name: 'Social Media Marketing', description: 'Complete social media campaigns', category: 'Digital Marketing', icon: '📱', price: '$150 - $1500' },
+            { id: 5, name: 'Video Editing', description: 'Professional video editing', category: 'Video & Animation', icon: '🎬', price: '$50 - $1000' },
+            { id: 6, name: 'Content Writing', description: 'High-quality content writing', category: 'Writing & Translation', icon: '✍️', price: '$20 - $300' },
+            { id: 7, name: 'Mobile App Development', description: 'iOS and Android apps', category: 'Programming & Tech', icon: '📱', price: '$500 - $10000' },
+            { id: 8, name: 'Business Card Design', description: 'Creative business cards', category: 'Graphics & Design', icon: '💳', price: '$20 - $200' },
+            { id: 9, name: 'Email Marketing', description: 'Email marketing campaigns', category: 'Digital Marketing', icon: '📧', price: '$80 - $800' },
+            { id: 10, name: 'Data Entry', description: 'Fast and accurate data entry', category: 'Data', icon: '⌨️', price: '$5 - $100' },
+            { id: 11, name: 'Translation Services', description: 'Professional translation', category: 'Writing & Translation', icon: '🌍', price: '$30 - $400' },
+            { id: 12, name: 'Animated Videos', description: 'Engaging animated videos', category: 'Video & Animation', icon: '🎥', price: '$100 - $2000' },
+            { id: 13, name: 'WordPress Development', description: 'Custom WordPress sites', category: 'Programming & Tech', icon: '💻', price: '$150 - $3000' },
+            { id: 14, name: 'Banner Design', description: 'Web and print banners', category: 'Graphics & Design', icon: '🏷️', price: '$25 - $250' },
+            { id: 15, name: 'Copywriting', description: 'Persuasive sales copy', category: 'Writing & Translation', icon: '📝', price: '$50 - $500' }
+        ];
+
+        let selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
+        let messages = JSON.parse(localStorage.getItem('messages')) || [
+            { from: 'AI', text: 'Welcome! How can I help you?', time: new Date().toLocaleTimeString() }
+        ];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let currentServiceId = null;
+
+        // Initialize
+        if (currentUser) {
+            showDashboard();
         }
 
-        ReactDOM.render(<App />, document.getElementById('root'));
+        // Login
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                showDashboard();
+            } else {
+                alert('Invalid email or password!');
+            }
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+        }
+
+        // Show Dashboard
+        function showDashboard() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            document.getElementById('userName').textContent = currentUser.name;
+            loadServices();
+            loadTeam();
+            loadMessages();
+            loadSelectedServices();
+        }
+
+        // Show Tab
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('servicesTab').classList.add('hidden');
+            document.getElementById('selectedTab').classList.add('hidden');
+            document.getElementById('chatTab').classList.add('hidden');
+            document.getElementById('teamTab').classList.add('hidden');
+            document.getElementById('guideTab').classList.add('hidden');
+            
+            document.getElementById(tabName + 'Tab').classList.remove('hidden');
+        }
+
+        // Load Services
+        function loadServices() {
+            const container = document.getElementById('servicesList');
+            container.innerHTML = '';
+            
+            services.forEach(service => {
+                const isSelected = selectedServices.find(s => s.id === service.id);
+                const card = document.createElement('div');
+                card.className = 'service-card' + (isSelected ? ' selected' : '');
+                card.innerHTML = `
+                    <h3>${service.icon} ${service.name}</h3>
+                    <p>${service.description}</p>
+                    <div class="price">Suggested: ${service.price}</div>
+                    <button class="select-btn" onclick="selectService(${service.id})">
+                        ${isSelected ? '✓ Selected' : '+ Select'}
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Select Service
+        function selectService(id) {
+            const service = services.find(s => s.id === id);
+            const isSelected = selectedServices.find(s => s.id === id);
+            
+            if (isSelected) {
+                selectedServices = selectedServices.filter(s => s.id !== id);
+                localStorage.setItem('selectedServices', JSON.stringify(selectedServices));
+                showNotification('Service removed!');
+                loadServices();
+                loadSelectedServices();
+            } else {
+                currentServiceId = id;
+                document.getElementById('modalServiceName').textContent = service.name;
+                document.getElementById('serviceModal').classList.add('show');
+            }
+        }
+
+        // Confirm Selection
+        function confirmSelection() {
+            const price = document.getElementById('modalPrice').value;
+            const deadline = document.getElementById('modalDeadline').value;
+            
+            if (!price || !deadline) {
+                alert('Please enter price and deadline!');
+                return;
+            }
+            
+            const service = services.find(s => s.id === currentServiceId);
+            selectedServices.push({
+                ...service,
+                customPrice: price,
+                deadline: deadline,
+                selectedAt: new Date().toLocaleString()
+            });
+            
+            localStorage.setItem('selectedServices', JSON.stringify(selectedServices));
+            closeModal();
+            showNotification('Service added!');
+            loadServices();
+            loadSelectedServices();
+            
+            // WhatsApp notification
+            const msg = `📦 ${currentUser.name} selected: ${service.name}\n💰 Budget: $${price}\n📅 Deadline: ${deadline}`;
+            window.open(`https://wa.me/923328508839?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('serviceModal').classList.remove('show');
+            document.getElementById('modalPrice').value = '';
+            document.getElementById('modalDeadline').value = '';
+        }
+
+        // Load Selected Services
+        function loadSelectedServices() {
+            const container = document.getElementById('selectedList');
+            container.innerHTML = '';
+            
+            if (selectedServices.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666;">No services selected yet</p>';
+                return;
+            }
+            
+            selectedServices.forEach(service => {
+                const card = document.createElement('div');
+                card.className = 'service-card';
+                card.innerHTML = `
+                    <h3>${service.icon} ${service.name}</h3>
+                    <p>${service.description}</p>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                        <p><strong>💰 Your Budget:</strong> $${service.customPrice}</p>
+                        <p><strong>📅 Deadline:</strong> ${service.deadline}</p>
+                    </div>
+                    <button class="btn btn-danger" style="margin-top: 10px;" onclick="removeService(${service.id})">Remove</button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Remove Service
+        function removeService(id) {
+            if (confirm('Remove this service?')) {
+                selectedServices = selectedServices.filter(s => s.id !== id);
+                localStorage.setItem('selectedServices', JSON.stringify(selectedServices));
+                showNotification('Service removed!');
+                loadServices();
+                loadSelectedServices();
+            }
+        }
+
+        // Load Team
+        function loadTeam() {
+            const container = document.getElementById('teamList');
+            container.innerHTML = '';
+            
+            users.forEach(user => {
+                const card = document.createElement('div');
+                card.className = 'team-card';
+                card.innerHTML = `
+                    <div class="avatar">${user.name.charAt(0)}</div>
+                    <h3>${user.name}</h3>
+                    <p>${user.email}</p>
+                    <span class="badge badge-${user.role}">${user.role.toUpperCase()}</span>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Send Message
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            const message = {
+                from: currentUser.name,
+                text: text,
+                time: new Date().toLocaleTimeString(),
+                sent: true
+            };
+            
+            messages.push(message);
+            localStorage.setItem('messages', JSON.stringify(messages));
+            input.value = '';
+            
+            // AI Response
+            setTimeout(() => {
+                const aiResponse = getAIResponse(text);
+                messages.push({
+                    from: 'AI',
+                    text: aiResponse,
+                    time: new Date().toLocaleTimeString(),
+                    sent: false
+                });
+                localStorage.setItem('messages', JSON.stringify(messages));
+                loadMessages();
+            }, 1000);
+            
+            loadMessages();
+            
+            // WhatsApp notification
+            if (currentUser.role === 'client') {
+                window.open(`https://wa.me/923328508839?text=${encodeURIComponent('💬 ' + currentUser.name + ': ' + text)}`, '_blank');
+            }
+        }
+
+        // AI Response
+        function getAIResponse(text) {
+            text = text.toLowerCase();
+            
+            if (text.includes('price') || text.includes('cost')) {
+                return 'Our prices are flexible! Select a service and set your own budget. 💰';
+            }
+            
+            if (text.includes('deadline') || text.includes('time')) {
+                return 'You can choose your own deadline from 24 hours to 3 months! ⏰';
+            }
+            
+            if (text.includes('service')) {
+                return 'We offer 40+ services including Graphics, Web Dev, Marketing, and more! 🚀';
+            }
+            
+            if (text.includes('hello') || text.includes('hi')) {
+                return 'Hello! 👋 Welcome to Vortex Digital AI! How can I help you?';
+            }
+            
+            return 'Thank you for your message! Our AI assistant is here to help. Browse our services and select what you need! 🤖';
+        }
+
+        // Load Messages
+        function loadMessages() {
+            const container = document.getElementById('messages');
+            container.innerHTML = '';
+            
+            messages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = 'message ' + (msg.sent ? 'sent' : 'received');
+                div.innerHTML = `
+                    <strong>${msg.from}</strong> <small>${msg.time}</small><br>
+                    ${msg.text}
+                `;
+                container.appendChild(div);
+            });
+            
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Show Notification
+        function showNotification(text) {
+            const notif = document.getElementById('notification');
+            notif.textContent = text;
+            notif.classList.add('show');
+            setTimeout(() => {
+                notif.classList.remove('show');
+            }, 3000);
+        }
+
+        // Sign Up
+        function showSignup() {
+            const name = prompt('Enter your name:');
+            if (!name) return;
+            
+            const email = prompt('Enter your email:');
+            if (!email) return;
+            
+            const password = prompt('Create a password:');
+            if (!password) return;
+            
+            if (users.find(u => u.email === email)) {
+                alert('Email already exists!');
+                return;
+            }
+            
+            const newUser = {
+                id: users.length + 1,
+                email: email,
+                password: password,
+                name: name,
+                role: 'client'
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            showDashboard();
+            showNotification('Account created successfully!');
+            
+            // WhatsApp notification
+            window.open(`https://wa.me/923328508839?text=${encodeURIComponent('🎉 New client: ' + name + ' (' + email + ')')}`, '_blank');
+        }
     </script>
 </body>
 </html>
