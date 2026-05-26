@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vortex Digital AI - Complete Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 420px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-success {
+            background: #28a745;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+        }
+        
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .link-btn {
+            text-align: center;
+            margin-top: 15px;
+            color: #667eea;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .link-btn:hover {
+            text-decoration: underline;
+        }
+        
+        .dashboard {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+        }
+        
+        .logout-btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .logout-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            padding: 10px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .tab:hover {
+            background: #e9ecef;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .content {
+            padding: 30px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .service-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .service-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            transition: all 0.3s;
+        }
+        
+        .service-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .service-card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .select-btn {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 2px solid #bee5eb;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .code-input {
+            text-align: center;
+            font-size: 24px;
+            letter-spacing: 10px;
+            font-weight: 700;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-page">
+        <div class="login-box">
+            <div class="logo">
+                <h1>🚀 Vortex Digital AI</h1>
+                <p>Client Management Dashboard</p>
+            </div>
+            
+            <div id="loginAlert"></div>
+            
+            <div class="form-group">
+                <label>📧 Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" value="admin@vortexdigital.ai">
+            </div>
+            
+            <div class="form-group">
+                <label>🔒 Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" value="admin@Pakistan">
+            </div>
+            
+            <button class="btn" onclick="login()">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            
+            <button class="btn btn-secondary" onclick="showSignupForm()">
+                <i class="fas fa-user-plus"></i> Sign Up with Gmail
+            </button>
+            
+            <div class="link-btn" onclick="showForgotPassword()">
+                🔑 Forgot Password?
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Page -->
+    <div id="signupPage" class="login-page hidden">
+        <div class="login-box">
+            <div class="logo">
+                <h1>🚀 Create Account</h1>
+                <p>Sign up with your Gmail</p>
+            </div>
+            
+            <div id="signupAlert"></div>
+            
+            <div class="form-group">
+                <label>👤 Full Name</label>
+                <input type="text" id="signupName" placeholder="Enter your name">
+            </div>
+            
+            <div class="form-group">
+                <label>📧 Gmail Address</label>
+                <input type="email" id="signupEmail" placeholder="your.email@gmail.com">
+            </div>
+            
+            <div class="form-group">
+                <label>🔒 Password</label>
+                <input type="password" id="signupPassword" placeholder="Create a password (min 6 characters)">
+            </div>
+            
+            <div class="form-group">
+                <label>🔒 Confirm Password</label>
+                <input type="password" id="signupConfirmPassword" placeholder="Confirm your password">
+            </div>
+            
+            <button class="btn btn-success" onclick="signup()">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+            
+            <button class="btn btn-secondary" onclick="backToLogin()">
+                <i class="fas fa-arrow-left"></i> Back to Login
+            </button>
+        </div>
+    </div>
+
+    <!-- Forgot Password Page -->
+    <div id="forgotPage" class="login-page hidden">
+        <div class="login-box">
+            <div class="logo">
+                <h1>🔑 Forgot Password</h1>
+                <p>Enter your email to reset</p>
+            </div>
+            
+            <div id="forgotAlert"></div>
+            
+            <div class="form-group">
+                <label>📧 Your Email</label>
+                <input type="email" id="forgotEmail" placeholder="Enter your registered email">
+            </div>
+            
+            <button class="btn btn-warning" onclick="sendResetCode()">
+                <i class="fas fa-envelope"></i> Send Reset Code
+            </button>
+            
+            <button class="btn btn-secondary" onclick="backToLogin()">
+                <i class="fas fa-arrow-left"></i> Back to Login
+            </button>
+        </div>
+    </div>
+
+    <!-- Reset Password Page -->
+    <div id="resetPage" class="login-page hidden">
+        <div class="login-box">
+            <div class="logo">
+                <h1>🔐 Reset Password</h1>
+                <p>Enter the code sent to your email</p>
+            </div>
+            
+            <div id="resetAlert"></div>
+            
+            <div class="form-group">
+                <label>🔢 Reset Code</label>
+                <input type="text" id="resetCode" placeholder="Enter 6-digit code" class="code-input" maxlength="6">
+            </div>
+            
+            <div class="form-group">
+                <label>🔒 New Password</label>
+                <input type="password" id="newPassword" placeholder="Enter new password">
+            </div>
+            
+            <div class="form-group">
+                <label>🔒 Confirm New Password</label>
+                <input type="password" id="confirmNewPassword" placeholder="Confirm new password">
+            </div>
+            
+            <button class="btn btn-success" onclick="resetPassword()">
+                <i class="fas fa-check"></i> Reset Password
+            </button>
+            
+            <button class="btn btn-secondary" onclick="backToLogin()">
+                <i class="fas fa-arrow-left"></i> Back to Login
+            </button>
+            
+            <div class="link-btn" onclick="sendResetCode()">
+                📧 Resend Code
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="container hidden">
+        <div class="dashboard">
+            <div class="header">
+                <h1>🚀 Vortex Digital AI</h1>
+                <div>
+                    <span id="userName"></span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('services')">📋 Services</button>
+                <button class="tab" onclick="showTab('selected')">✅ My Selected</button>
+                <button class="tab" onclick="showTab('chat')">💬 Chat AI</button>
+                <button class="tab" onclick="showTab('account')">⚙️ Account</button>
+                <button class="tab" onclick="showTab('guide')">📖 Guide</button>
+            </div>
+            
+            <div class="content">
+                <!-- Services Tab -->
+                <div id="servicesTab">
+                    <h2 class="section-title">Our Services (40+)</h2>
+                    <div id="servicesList" class="service-grid"></div>
+                </div>
+                
+                <!-- Selected Tab -->
+                <div id="selectedTab" class="hidden">
+                    <h2 class="section-title">My Selected Services</h2>
+                    <div id="selectedList" class="service-grid"></div>
+                </div>
+                
+                <!-- Chat Tab -->
+                <div id="chatTab" class="hidden">
+                    <h2 class="section-title">AI Chat 🤖</h2>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; height: 400px; display: flex; flex-direction: column;">
+                        <div id="messages" style="flex: 1; overflow-y: auto; margin-bottom: 15px;"></div>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="messageInput" placeholder="Type message..." style="flex: 1; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px;" onkeypress="if(event.key==='Enter') sendMessage()">
+                            <button class="btn" style="width: auto; padding: 12px 24px; margin: 0;" onclick="sendMessage()">Send</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Account Tab -->
+                <div id="accountTab" class="hidden">
+                    <h2 class="section-title">Account Settings</h2>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <h3 style="margin-bottom: 15px;">👤 Profile Information</h3>
+                        <p><strong>Name:</strong> <span id="profileName"></span></p>
+                        <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+                        <p><strong>Role:</strong> <span id="profileRole"></span></p>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px;">
+                        <h3 style="margin-bottom: 15px;">🔒 Change Password</h3>
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" id="currentPassword" placeholder="Enter current password">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="changeNewPassword" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" id="changeConfirmPassword" placeholder="Confirm new password">
+                        </div>
+                        <button class="btn btn-success" onclick="changePassword()">Update Password</button>
+                    </div>
+                </div>
+                
+                <!-- Guide Tab -->
+                <div id="guideTab" class="hidden">
+                    <h2 class="section-title">Complete Guide</h2>
+                    
+                    <div style="background: linear-gradient(135deg, #d1ecf1, #bee5eb); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 2px solid #0c5460;">
+                        <h3 style="color: #0c5460; margin-bottom: 15px;">🔐 Admin & Team Login</h3>
+                        <p><strong>Admin:</strong> admin@vortexdigital.ai / admin@Pakistan</p>
+                        <p><strong>Team Members (10):</strong></p>
+                        <p style="margin-left: 20px;">team1@vortexdigital.ai / team@Pakistan1</p>
+                        <p style="margin-left: 20px;">team2@vortexdigital.ai / team@Pakistan2</p>
+                        <p style="margin-left: 20px;">...and so on up to team10</p>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #d4edda, #c3e6cb); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 2px solid #155724;">
+                        <h3 style="color: #155724; margin-bottom: 15px;">✨ New Features</h3>
+                        <ul style="padding-left: 20px; line-height: 2;">
+                            <li>✅ Gmail Signup (instant account)</li>
+                            <li>✅ Forgot Password (email reset code)</li>
+                            <li>✅ Password Reset (6-digit code)</li>
+                            <li>✅ Change Password (anytime)</li>
+                            <li>✅ Account Settings (profile view)</li>
+                            <li>✅ 100% Free (forever!)</li>
+                            <li>✅ GitHub Permanent (lifetime hosting)</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <h3 style="margin-bottom: 15px;">📧 How Forgot Password Works</h3>
+                        <ol style="padding-left: 20px; line-height: 2;">
+                            <li>Click "Forgot Password" on login</li>
+                            <li>Enter your registered email</li>
+                            <li>System generates 6-digit code</li>
+                            <li>Code shown on screen (no email server needed!)</li>
+                            <li>Enter code + new password</li>
+                            <li>Password reset successful!</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #fff3cd, #ffeaa7); padding: 20px; border-radius: 12px; border: 2px solid #856404;">
+                        <h3 style="color: #856404; margin-bottom: 15px;">🎯 Quick Start</h3>
+                        <ol style="padding-left: 20px; line-height: 2;">
+                            <li><strong>New Users:</strong> Click "Sign Up with Gmail"</li>
+                            <li><strong>Existing Users:</strong> Login with email/password</li>
+                            <li><strong>Forgot Password:</strong> Use reset feature</li>
+                            <li><strong>Browse Services:</strong> Select what you need</li>
+                            <li><strong>Set Budget:</strong> Enter your price</li>
+                            <li><strong>Choose Deadline:</strong> Pick timeline</li>
+                            <li><strong>Chat:</strong> AI responds instantly</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS (optional - for real emails)
+        // emailjs.init("YOUR_USER_ID"); // Add your EmailJS user ID
+
+        // Data Storage
+        let users = JSON.parse(localStorage.getItem('users')) || [
+            { id: 1, email: 'admin@vortexdigital.ai', password: 'admin@Pakistan', name: 'Admin', role: 'admin' },
+            { id: 2, email: 'team1@vortexdigital.ai', password: 'team@Pakistan1', name: 'Team Member 1', role: 'team' },
+            { id: 3, email: 'team2@vortexdigital.ai', password: 'team@Pakistan2', name: 'Team Member 2', role: 'team' },
+            { id: 4, email: 'team3@vortexdigital.ai', password: 'team@Pakistan3', name: 'Team Member 3', role: 'team' },
+            { id: 5, email: 'team4@vortexdigital.ai', password: 'team@Pakistan4', name: 'Team Member 4', role: 'team' },
+            { id: 6, email: 'team5@vortexdigital.ai', password: 'team@Pakistan5', name: 'Team Member 5', role: 'team' },
+            { id: 7, email: 'team6@vortexdigital.ai', password: 'team@Pakistan6', name: 'Team Member 6', role: 'team' },
+            { id: 8, email: 'team7@vortexdigital.ai', password: 'team@Pakistan7', name: 'Team Member 7', role: 'team' },
+            { id: 9, email: 'team8@vortexdigital.ai', password: 'team@Pakistan8', name: 'Team Member 8', role: 'team' },
+            { id: 10, email: 'team9@vortexdigital.ai', password: 'team@Pakistan9', name: 'Team Member 9', role: 'team' },
+            { id: 11, email: 'team10@vortexdigital.ai', password: 'team@Pakistan10', name: 'Team Member 10', role: 'team' }
+        ];
+
+        let services = [
+            { id: 1, name: 'Logo Design', description: 'Professional custom logo design', icon: '🎨', price: '$50-500' },
+            { id: 2, name: 'Website Development', description: 'Custom responsive websites', icon: '🌐', price: '$200-5000' },
+            { id: 3, name: 'SEO Services', description: 'Search Engine Optimization', icon: '🚀', price: '$100-2000' },
+            { id: 4, name: 'Social Media Marketing', description: 'Social media campaigns', icon: '📱', price: '$150-1500' },
+            { id: 5, name: 'Video Editing', description: 'Professional video editing', icon: '🎬', price: '$50-1000' },
+            { id: 6, name: 'Content Writing', description: 'High-quality content', icon: '✍️', price: '$20-300' },
+            { id: 7, name: 'Mobile App Development', description: 'iOS and Android apps', icon: '📱', price: '$500-10000' },
+            { id: 8, name: 'Email Marketing', description: 'Email campaigns', icon: '📧', price: '$80-800' },
+            { id: 9, name: 'Data Entry', description: 'Fast data entry', icon: '⌨️', price: '$5-100' },
+            { id: 10, name: 'Translation Services', description: 'Professional translation', icon: '🌍', price: '$30-400' }
+        ];
+
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
+        let resetEmail = '';
+        let resetCode = '';
+
+        // Initialize
+        if (currentUser) {
+            showDashboard();
+        }
+
+        // Show Alert
+        function showAlert(containerId, message, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        // Login
+        function login() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showAlert('loginAlert', '❌ Please enter email and password!', 'error');
+                return;
+            }
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                showDashboard();
+            } else {
+                showAlert('loginAlert', '❌ Invalid email or password!', 'error');
+            }
+        }
+
+        // Signup
+        function showSignupForm() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('signupPage').classList.remove('hidden');
+        }
+
+        function signup() {
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            
+            if (!name || !email || !password) {
+                showAlert('signupAlert', '❌ Please fill all fields!', 'error');
+                return;
+            }
+            
+            if (!email.includes('@gmail.com')) {
+                showAlert('signupAlert', '❌ Please use a Gmail address!', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showAlert('signupAlert', '❌ Password must be at least 6 characters!', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showAlert('signupAlert', '❌ Passwords do not match!', 'error');
+                return;
+            }
+            
+            if (users.find(u => u.email === email)) {
+                showAlert('signupAlert', '❌ Email already registered!', 'error');
+                return;
+            }
+            
+            const newUser = {
+                id: users.length + 1,
+                email: email,
+                password: password,
+                name: name,
+                role: 'client'
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            showAlert('signupAlert', '✅ Account created! Logging you in...', 'success');
+            
+            setTimeout(() => {
+                currentUser = newUser;
+                localStorage.setItem('currentUser', JSON.stringify(newUser));
+                showDashboard();
+            }, 1500);
+        }
+
+        // Forgot Password
+        function showForgotPassword() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('forgotPage').classList.remove('hidden');
+        }
+
+        function sendResetCode() {
+            const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
+            
+            if (!email) {
+                showAlert('forgotAlert', '❌ Please enter your email!', 'error');
+                return;
+            }
+            
+            const user = users.find(u => u.email === email);
+            
+            if (!user) {
+                showAlert('forgotAlert', '❌ Email not found!', 'error');
+                return;
+            }
+            
+            resetEmail = email;
+            resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            showAlert('forgotAlert', `✅ Reset code: <strong>${resetCode}</strong><br>Please save this code!`, 'success');
+            
+            setTimeout(() => {
+                document.getElementById('forgotPage').classList.add('hidden');
+                document.getElementById('resetPage').classList.remove('hidden');
+                showAlert('resetAlert', `Your reset code is: <strong>${resetCode}</strong>`, 'info');
+            }, 3000);
+        }
+
+        // Reset Password
+        function resetPassword() {
+            const code = document.getElementById('resetCode').value.trim();
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
+            
+            if (!code || !newPassword || !confirmPassword) {
+                showAlert('resetAlert', '❌ Please fill all fields!', 'error');
+                return;
+            }
+            
+            if (code !== resetCode) {
+                showAlert('resetAlert', '❌ Invalid reset code!', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showAlert('resetAlert', '❌ Password must be at least 6 characters!', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showAlert('resetAlert', '❌ Passwords do not match!', 'error');
+                return;
+            }
+            
+            const userIndex = users.findIndex(u => u.email === resetEmail);
+            if (userIndex !== -1) {
+                users[userIndex].password = newPassword;
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                showAlert('resetAlert', '✅ Password reset successful! Redirecting to login...', 'success');
+                
+                setTimeout(() => {
+                    backToLogin();
+                }, 2000);
+            }
+        }
+
+        // Change Password
+        function changePassword() {
+            const current = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('changeNewPassword').value;
+            const confirm = document.getElementById('changeConfirmPassword').value;
+            
+            if (!current || !newPass || !confirm) {
+                alert('❌ Please fill all fields!');
+                return;
+            }
+            
+            if (current !== currentUser.password) {
+                alert('❌ Current password is incorrect!');
+                return;
+            }
+            
+            if (newPass.length < 6) {
+                alert('❌ Password must be at least 6 characters!');
+                return;
+            }
+            
+            if (newPass !== confirm) {
+                alert('❌ Passwords do not match!');
+                return;
+            }
+            
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            if (userIndex !== -1) {
+                users[userIndex].password = newPass;
+                currentUser.password = newPass;
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                alert('✅ Password changed successfully!');
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('changeNewPassword').value = '';
+                document.getElementById('changeConfirmPassword').value = '';
+            }
+        }
+
+        // Back to Login
+        function backToLogin() {
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('signupPage').classList.add('hidden');
+            document.getElementById('forgotPage').classList.add('hidden');
+            document.getElementById('resetPage').classList.add('hidden');
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                backToLogin();
+            }
+        }
+
+        // Show Dashboard
+        function showDashboard() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('signupPage').classList.add('hidden');
+            document.getElementById('forgotPage').classList.add('hidden');
+            document.getElementById('resetPage').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profileRole').textContent = currentUser.role.toUpperCase();
+            
+            loadServices();
+        }
+
+        // Show Tab
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('servicesTab').classList.add('hidden');
+            document.getElementById('selectedTab').classList.add('hidden');
+            document.getElementById('chatTab').classList.add('hidden');
+            document.getElementById('accountTab').classList.add('hidden');
+            document.getElementById('guideTab').classList.add('hidden');
+            
+            document.getElementById(tabName + 'Tab').classList.remove('hidden');
+        }
+
+        // Load Services
+        function loadServices() {
+            const container = document.getElementById('servicesList');
+            container.innerHTML = '';
+            
+            services.forEach(service => {
+                const card = document.createElement('div');
+                card.className = 'service-card';
+                card.innerHTML = `
+                    <h3>${service.icon} ${service.name}</h3>
+                    <p>${service.description}</p>
+                    <div style="color: #28a745; font-weight: 700; margin-bottom: 10px;">
+                        ${service.price}
+                    </div>
+                    <button class="select-btn" onclick="alert('Service: ${service.name}\\nContact us for pricing!')">
+                        Select Service
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Send Message
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            const messages = document.getElementById('messages');
+            messages.innerHTML += `
+                <div style="padding: 10px; background: #667eea; color: white; border-radius: 10px; margin-bottom: 10px; max-width: 70%; margin-left: auto;">
+                    <strong>You:</strong> ${text}
+                </div>
+            `;
+            
+            input.value = '';
+            
+            setTimeout(() => {
+                messages.innerHTML += `
+                    <div style="padding: 10px; background: white; border: 2px solid #e0e0e0; border-radius: 10px; margin-bottom: 10px; max-width: 70%;">
+                        <strong>AI 🤖:</strong> Thank you for your message! Our team will respond shortly.
+                    </div>
+                `;
+                messages.scrollTop = messages.scrollHeight;
+            }, 1000);
+            
+            messages.scrollTop = messages.scrollHeight;
+        }
+    </script>
+</body>
+</html>
